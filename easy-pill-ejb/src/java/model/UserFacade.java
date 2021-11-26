@@ -34,26 +34,56 @@ public class UserFacade extends AbstractFacade<User> {
     public boolean checkEmailExists(String email) {
         Query q = em.createNamedQuery("User.findByEmail");
         q.setParameter(1, email);
-        List a =  q.getResultList();
+        List a = q.getResultList();
         if (a.isEmpty()) {
             return false;
         } else {
             return true;
         }
     }
-    
+
     public User getAuthenticatedUser(String email) {
         Query q = em.createNamedQuery("User.findByEmail");
         q.setParameter(1, email);
-        List<User> a =  q.getResultList();
-        if(a.isEmpty()){
+        List<User> a = q.getResultList();
+        if (a.isEmpty()) {
             return null;
-        }
-        else
-        {
+        } else {
             return a.get(0);
         }
-        
+
+    }
+
+    public List<User> getAllCustomers() {
+        Query q = em.createNamedQuery("User.findByUserRole");
+        q.setParameter(1, "customer");
+        List<User> a = q.getResultList();
+        return a;
+    }
+
+    public List<User> getAllDoctors() {
+        Query q = em.createNamedQuery("User.findByUserRole");
+        q.setParameter(1, "doctor");
+        List<User> a = q.getResultList();
+        return a;
+    }
+
+    public List<User> getAllPharmacists() {
+        Query q = em.createNamedQuery("User.findByUserRole");
+        q.setParameter(1, "pharmacist");
+        List<User> a = q.getResultList();
+        return a;
+    }
+
+    public boolean removeUser(String userId) {
+        Query q = em.createNamedQuery("User.removeByUserId");
+        q.setParameter(1, userId);
+        try {
+            q.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

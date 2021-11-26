@@ -29,7 +29,7 @@
                             <input hidden="" name="command" value="customer">
                             <h2 class="form-title">Create account</h2>
                             <div class="form-group">
-                                <p style="text-align: center; color: red;">${Error}</p>
+                                <p style="text-align: center; color: red;">${ErrorMessage}</p>
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
@@ -42,7 +42,7 @@
                                     <input type="email" class="form-input" name="email" required id="email" placeholder="Your Email" value="${email}"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" class="form-input" name="contact" required id="name" placeholder="Contact No" value="${contact}"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                    <input type="number" class="form-input" name="contact" required id="name" placeholder="Contact Number" value="${contact}"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                         maxlength = "10"/>
                                 </div>
                                 <div class="form-group">

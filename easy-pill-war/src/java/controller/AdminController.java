@@ -44,7 +44,7 @@ public class AdminController extends HttpServlet {
 
     private void redirectHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        request.setAttribute("username", (String) session.getAttribute("firstName") + " " + (String) session.getAttribute("lastName"));
+        request.setAttribute("username", (String) session.getAttribute("UserFirstName") + " " + (String) session.getAttribute("UserLastName"));
         request.setAttribute("userCount","0" );
         request.setAttribute("medicineCount","0" );
         request.setAttribute("orderCount","0" );

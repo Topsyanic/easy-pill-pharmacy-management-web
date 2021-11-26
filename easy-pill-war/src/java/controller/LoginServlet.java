@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
     private UserFacade userFacade;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -45,9 +45,9 @@ public class LoginServlet extends HttpServlet {
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("userId", user.getUserId());
-            session.setAttribute("email", email);
-            session.setAttribute("firstName", user.getFirstName());
-            session.setAttribute("lastName", user.getLastName());
+            session.setAttribute("UserEmail", email);
+            session.setAttribute("UserFirstName", user.getFirstName());
+            session.setAttribute("UserLastName", user.getLastName());
             session.setAttribute("userRole", user.getUserRole());
             switch (user.getUserRole()) {
                 case "admin": {

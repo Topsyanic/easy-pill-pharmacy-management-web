@@ -30,11 +30,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName")
     , @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName")
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = ?1")
+    , @NamedQuery(name = "User.removeByUserId", query = "DELETE FROM User u WHERE u.userId = ?1")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
     , @NamedQuery(name = "User.findByContactNo", query = "SELECT u FROM User u WHERE u.contactNo = :contactNo")
     , @NamedQuery(name = "User.findByAddress", query = "SELECT u FROM User u WHERE u.address = :address")
     , @NamedQuery(name = "User.findByExpertise", query = "SELECT u FROM User u WHERE u.expertise = :expertise")
-    , @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole")})
+    , @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = ?1")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -173,5 +174,5 @@ public class User implements Serializable {
     public String toString() {
         return "entities.User[ userId=" + userId + " ]";
     }
-    
+
 }

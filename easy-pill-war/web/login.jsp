@@ -28,7 +28,7 @@
     <section class="signup">
         <div class="container">
             <div class="signup-content">
-                <form action="LoginServlet" method="GET" class="signup-form">
+                <form action="LoginServlet" method="POST" class="signup-form">
                     <h2 class="form-title">Sign In</h2>
                     <div class="form-group">
                         <input type="email" class="form-input" name="email" id="email" placeholder="Email" value="${email}"/>
@@ -44,7 +44,7 @@
 
                 </form>
                 <p class="loginhere">
-                    No account ? Sign Up as <a href="customerSignUp.jsp" class="login-here-link-text">Customer</a>,<a href="doctorSignUp.jsp" class="login-here-link-text">Doctor</a> or <a href="pharmacistSignUp.jsp" class="login-here-link-text">Pharmacist</a>
+                    No account ? Sign Up as <a href="customerSignUp.jsp" class="login-here-link-text">Customer</a> or <a href="doctorSignUp.jsp" class="login-here-link-text">Doctor</a>
                 </p>
             </div>
         </div>

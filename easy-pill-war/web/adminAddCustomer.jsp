@@ -1,6 +1,6 @@
 <%-- 
-    Document   : doctorSignUp
-    Created on : Nov 24, 2021, 3:11:48 PM
+    Document   : adminAddCustomer
+    Created on : Nov 26, 2021, 8:23:11 PM
     Author     : Topsy
 --%>
 
@@ -12,7 +12,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Sign Up Page</title>
+        <title>Add Customer</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
         <link rel="stylesheet" href="FONTS/material-icon/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="CSS/footer.css">
@@ -20,14 +20,13 @@
     </head>
     <body>
         <h1 class="title-h1" >EASY<span class='alt-color'>PILL</span></h1>
-        <input name='command' value='ADD' hidden>
         <div class="main">
             <section class="signup">
                 <div class="container">
                     <div class="signup-content">
-                        <form action="RegisterServlet" method="POST" class="signup-form" >
-                            <input hidden="" name="command" value="doctor">
-                            <h2 class="form-title">Create account</h2>
+                        <form action="UserController" method="POST" class="signup-form" >
+                            <input hidden="" name="command" value="ADDCUSTOMER">
+                            <h2 class="form-title">Add Customer</h2>
                             <div class="form-group">
                                 <p style="text-align: center; color: red;">${ErrorMessage}</p>
                             </div>
@@ -49,9 +48,6 @@
                                     <input type="text" class="form-input" name="address" required id="name" placeholder="Address" value="${address}"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-input" name="expertise" required id="name" placeholder="Expertise" value="${expertise}"/>
-                                </div>
-                                <div class="form-group">
                                     <input type="password"  class="form-input" name="password" required id="password" placeholder="Password" onkeyup="checkPass();" value="${password}"/>
                                     <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                                 </div>
@@ -61,10 +57,10 @@
                                     <span id="confirm-message2" class="confirm-message" ></span>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"  onclick="return validate()"/>
+                                    <input type="submit" name="submit" id="submit" class="form-submit" value="Add Customer"  onclick="return validate()"/>
                                 </div>
                         <p class="loginhere">
-                            Already have an account ? <a class="login-here-link-text" href="login.jsp">Login here</a>
+                           <a class="login-here-link-text" href="UserController">Go Back</a>
                         </p>
                     </div>
                         </form>

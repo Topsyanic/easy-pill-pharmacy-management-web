@@ -39,7 +39,7 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("password", request.getParameter("password"));
             request.setAttribute("contact", request.getParameter("contact"));
             request.setAttribute("expertise", request.getParameter("expertise"));
-            request.setAttribute("Error", "Email already exists, Please try a different email");
+            request.setAttribute("ErrorMessage", "Email already exists, Please try a different email");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/" + userRole + "SignUp.jsp");
             dispatcher.forward(request, response);
         }
