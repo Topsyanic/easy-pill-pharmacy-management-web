@@ -1,0 +1,14 @@
+build/
+dist/
+setup/
+nbproject/
+easy-pill-war/build/
+easy-pill-war/dist/
+easy-pill-war/nbproject/
+easy-pill-war/setup/
+easy-pill-war/test/
+easy-pill-ejb/build/
+easy-pill-ejb/dist/
+easy-pill-ejb/nbproject/
+easy-pill-ejb/test/
+easy-pill-war/web/ProductImages/

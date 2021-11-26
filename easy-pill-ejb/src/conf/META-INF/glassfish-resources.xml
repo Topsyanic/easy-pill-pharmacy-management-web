@@ -12,4 +12,5 @@
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="java:module/jdbc/pharmacy_management" object-type="user" pool-name="mysql_pharmacy_management_rootPool"/>
     <jdbc-resource enabled="true" jndi-name="java:module/jdbc/easy-pill" object-type="user" pool-name="mysql_pharmacy_management_rootPool"/>
+    <jdbc-resource enabled="true" jndi-name="java:module/datasourceEasy" object-type="user" pool-name="mysql_pharmacy_management_rootPool"/>
 </resources>

@@ -28,15 +28,15 @@
     <section class="signup">
         <div class="container">
             <div class="signup-content">
-                <form action="j_security_check" method="POST" class="signup-form">
+                <form action="LoginServlet" method="GET" class="signup-form">
                     <h2 class="form-title">Sign In</h2>
                     <div class="form-group">
-                        <input type="email" class="form-input" name="email" id="email" placeholder="Email"/>
+                        <input type="email" class="form-input" name="email" id="email" placeholder="Email" value="${email}"/>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-input" name="password" id="password" placeholder="Password"/>
+                        <input type="password" class="form-input" name="password" id="password" placeholder="Password" />
                         <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-                        <p class="error-message">${uploadError}</p>
+                        <p class="error-message">${ErrorMessage}</p>
                     </div>
                     <div class="form-group">
                         <input type="submit" name="submit" id="submit" class="form-submit" value="Sign In"/>
@@ -44,7 +44,7 @@
 
                 </form>
                 <p class="loginhere">
-                    No account ? Sign Up as <a href="customerSignUp.jsp" class="login-here-link-text">Customer</a>,<a href="doctorSignUp.jsp" class="login-here-link-text">Doctor</a> or <a href="doctorSignUp.jsp" class="login-here-link-text">Pharmacist</a>
+                    No account ? Sign Up as <a href="customerSignUp.jsp" class="login-here-link-text">Customer</a>,<a href="doctorSignUp.jsp" class="login-here-link-text">Doctor</a> or <a href="pharmacistSignUp.jsp" class="login-here-link-text">Pharmacist</a>
                 </p>
             </div>
         </div>

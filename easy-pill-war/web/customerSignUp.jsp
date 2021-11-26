@@ -1,5 +1,5 @@
 <%-- 
-    Document   : singUpPage
+    Document   : customerSignUp
     Created on : Jul 24, 2021, 11:14:26 AM
     Author     : Raaid
 --%>
@@ -25,10 +25,11 @@
             <section class="signup">
                 <div class="container">
                     <div class="signup-content">
-                        <form action="RegisterServlet" method="POST" class="signup-form" enctype="multipart/form-data" >
+                        <form action="RegisterServlet" method="POST" class="signup-form" >
+                            <input hidden="" name="command" value="customer">
                             <h2 class="form-title">Create account</h2>
                             <div class="form-group">
-                                <p style="text-align: center; color: red;">${uploadError}</p>
+                                <p style="text-align: center; color: red;">${Error}</p>
                             </div>
                             <div class="form-group">
                                 <div class="form-group">

@@ -22,29 +22,29 @@
                 <h2> <span>EASY PILL</span></h2>
             </div>
             <div class="sidebar-menu">
-                <c:url var="dashboardLink" value="ModeratorController">
+                <c:url var="dashboardLink" value="AdminController">
                     <c:param name="command" value="HOME"/>
                 </c:url>
-                <c:url var="customerLink" value="ModeratorController">
-                    <c:param name="command" value="CUSTOMER"/>
+                <c:url var="userLink" value="UserController">
+                    <c:param name="command" value="USER"/>
                 </c:url>
-                <c:url var="movieLink" value="MovieController">
-                    <c:param name="command" value="MOVIE"/>
+                <c:url var="medicineLink" value="MedicineController">
+                    <c:param name="command" value="MEDICINE"/>
                 </c:url>
-                <c:url var="bookLink" value="BookController">
-                    <c:param name="command" value="BOOK"/>
+                <c:url var="supplierLink" value="SupplierController">
+                    <c:param name="command" value="SUPPLIER"/>
                 </c:url>
-                <c:url var="offerLink" value="OfferController">
-                    <c:param name="command" value="OFFER"/>
+                <c:url var="orderLink" value="OrderController">
+                    <c:param name="command" value="ORDER"/>
                 </c:url>
                 <c:url var="logoutLink" value="LogoutServlet">
                 </c:url>
                 <ul>
                     <li><a href="${dashboardLink}" class="active"><span class="las la-home"></span><span>Dashboard</span></a></li>
-                    <li><a href="${customerLink}"><span class="las la-users"></span><span>Users</span></a></li>
-                    <li><a href="${bookLink}"><span class="las la-first-aid"></span><span>Medicine</span></a></li>
-                    <li><a href="${movieLink}"><span class="las la-truck"></span><span>Suppliers</span></a></li>
-                    <li><a href="${offerLink}"><span class="las la-shopping-cart"></span><span>Orders</span></a></li>
+                    <li><a href="${userLink}"><span class="las la-users"></span><span>Users</span></a></li>
+                    <li><a href="${medicineLink}"><span class="las la-first-aid"></span><span>Medicine</span></a></li>
+                    <li><a href="${supplierLink}"><span class="las la-truck"></span><span>Suppliers</span></a></li>
+                    <li><a href="${orderLink}"><span class="las la-shopping-cart"></span><span>Orders</span></a></li>
                     <li><a href="${logoutLink}"><span class="las la-sign-out-alt"></span><span>Logout</span></a></li>
                 </ul>
             </div>
@@ -77,7 +77,7 @@
                 <div class="cards">
                     <div class="cards-single">
                         <div>
-                            <h1>${customerCount}</h1>
+                            <h1>${userCount}</h1>
                             <span>Users</span>
                         </div>
                         <div>
@@ -86,7 +86,7 @@
                     </div>
                     <div class="cards-single">
                         <div>
-                            <h1>${bookCount}</h1>
+                            <h1>${medicineCount}</h1>
                             <span>Medicine</span>
                         </div>
                         <div>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="cards-single">
                         <div>
-                            <h1>${movieCount}</h1>
+                            <h1>${orderCount}</h1>
                             <span>Orders</span>
                         </div>
                         <div>
@@ -107,8 +107,8 @@
                     <div class="projects">
                         <div class="card">
                             <div class="card-header">
-                                <h3>Recent Offers</h3>
-                                <a class="linkButton" href="${offerLink}">See More <span class="las la-arrow-right"></span></a>
+                                <h3>Recent Order</h3>
+                                <a class="linkButton" href="${orderLink}">See More <span class="las la-arrow-right"></span></a>
                             </div>
 
                             <div class="card-body">
@@ -116,8 +116,8 @@
                                     <table width="100%" id="tableData">
                                         <thead>
                                             <tr>
-                                                <td>Offer Id</td>
-                                                <td>Message</td>
+                                                <td>Order Id</td>
+                                                <td>Details</td>
                                                 <td>Date</td>
                                             </tr>
                                         </thead>

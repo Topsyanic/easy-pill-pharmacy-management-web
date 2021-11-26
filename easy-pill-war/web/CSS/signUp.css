@@ -355,8 +355,8 @@ body {
 
 }
 .title-h1-large{
-    color:#5A2E98;
-    font-weight:lighter;
+    color: #1b4b80;
+    font-weight: lighter;
     font-size: 350%;
     text-align: center;
     font-family: 'Oswald', sans-serif;
@@ -475,6 +475,10 @@ input[type=checkbox]:not(old):checked + label > span:before {
 
 .term-service {
     color: #555; }
+
+.detail-box{
+    text-align: center;
+}
 
 .loginhere {
     color: #555;
