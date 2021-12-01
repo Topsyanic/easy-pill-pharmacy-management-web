@@ -20,6 +20,14 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>controller.LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MedicineController</servlet-name>
+        <servlet-class>controller.MedicineController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SupplierController</servlet-name>
+        <servlet-class>controller.SupplierController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
         <url-pattern>/UserController</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MedicineController</servlet-name>
+        <url-pattern>/MedicineController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SupplierController</servlet-name>
+        <url-pattern>/SupplierController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

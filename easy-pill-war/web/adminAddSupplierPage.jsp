@@ -1,6 +1,6 @@
 <%-- 
-    Document   : adminAddPharmacist
-    Created on : Nov 26, 2021, 8:46:48 PM
+    Document   : adminAddSupplierPage
+    Created on : Dec 1, 2021, 4:45:07 PM
     Author     : Topsy
 --%>
 
@@ -12,7 +12,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Add Pharmacist</title>
+        <title>Add Supplier</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
         <link rel="stylesheet" href="FONTS/material-icon/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="CSS/footer.css">
@@ -24,21 +24,18 @@
             <section class="signup">
                 <div class="container">
                     <div class="signup-content">
-                        <form action="UserController" method="POST" class="signup-form" >
-                            <input hidden="" name="command" value="ADDPHARMACIST">
-                            <h2 class="form-title">Add Pharmacist</h2>
+                        <form action="SupplierController" method="POST" class="signup-form" >
+                            <input hidden="" name="command" value="ADDSUPPLIER">
+                            <h2 class="form-title">Add Supplier</h2>
                             <div class="form-group">
                                 <p style="text-align: center; color: red;">${ErrorMessage}</p>
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
-                                    <input type="text" class="form-input" name="firstName" required id="name" placeholder="First Name" value="${firstName}"/>
+                                    <input type="text" class="form-input" name="name" required id="name" placeholder="Supplier Name" value="${name}"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-input" name="lastName" required id="name" placeholder="Last Name" value="${lastName}"/>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-input" name="email" required id="email" placeholder="Your Email" value="${email}"/>
+                                    <input type="email" class="form-input" name="email" required id="email" placeholder="Supplier Email" value="${email}"/>
                                 </div>
                                 <div class="form-group">
                                     <input type="tel" class="form-input" name="contact" required id="name" placeholder="Contact Number Ex: 0712345689" value="${contact}" pattern="[0]{1}[7,1]{1}[0-9]{8}"/>
@@ -47,19 +44,10 @@
                                     <input type="text" class="form-input" name="address" required id="name" placeholder="Address" value="${address}"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password"  class="form-input" name="password" required id="password" placeholder="Password" onkeyup="checkPass();" value="${password}"/>
-                                    <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-input" name="password0" required id="password0" placeholder="Repeat your password" onkeyup="checkPass();" value="${password}"/>
-                                    <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
-                                    <span id="confirm-message2" class="confirm-message" ></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" name="submit" id="submit" class="form-submit" value="Add Pharmacist"  onclick="return validate()"/>
+                                    <input type="submit" name="submit" id="submit" class="form-submit" value="Add Supplier"  onclick="return validate()"/>
                                 </div>
                                 <p class="loginhere">
-                                    <a class="login-here-link-text" href="UserController">Go Back</a>
+                                    <a class="login-here-link-text" href="SupplierController">Go Back</a>
                                 </p>
                             </div>
                         </form>

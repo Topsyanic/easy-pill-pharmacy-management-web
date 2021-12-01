@@ -1,41 +1,59 @@
 <%-- 
-    Document   : accountCreationFailed
-    Created on : Nov 26, 2021, 10:03:48 AM
+    Document   : adminUpdateMedicineImagePage
+    Created on : Nov 29, 2021, 5:54:33 PM
     Author     : Topsy
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Account Creation Failed</title>
+        <title>Update Medicine Image</title>
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-        <link rel="stylesheet" href="CSS/signUp.css">
+        <link rel="stylesheet" href="CSS/updateMedicineImage.css">
         <link rel="stylesheet" href="CSS/footer.css">
     </head>
     <body>
+        <c:url var="medicineLink" value="MedicineController">
+            <c:param name="command" value="MEDICINE"/>
+        </c:url>
+
         <br>
         <br>
         <br>
         <h1 class="title-h1-large" >EASY<span class='alt-color'>PILL</span></h1>
-        <img class="reading3-svg" src="IMG/sad.svg" />
-        <img class="watching-svg" src="IMG/welcome.svg" />
+        <img class="reading3-svg" src="IMG/update1.svg" />
+        <img class="watching-svg" src="IMG/update2.svg" />
         <div class="main">
             <section class="signup">           
                 <div class="container">
                     <div class="signup-content">
-                        <h2 class="form-title"> Account creation failed</h2>
-                        <p class="detail-box">Something went wrong when creating your account. Please try again.</p>
-                        <br>
-                        <br>
-                        <div class="form-group">
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Go to Login Page   " onclick="location.href = 'login.jsp'"/>
-                        </div>                   
-                    </div>
+                        <form action="MedicineController" method="POST"  class="signup-form" enctype="multipart/form-data">
+                            <input name='command' value='UPDATEMEDICINE' hidden>
+                            <input name='option' value='image' hidden>
+                            <input name='name' value='${name}' hidden>
+                            <input name='medicineId' value='${medicineId}' hidden>
+                            <h2 class="form-title">Update Medicine Image</h2>
+                            <h2>${name}</h2>
+                            <p style='text-align: center;'>Please make sure the file you upload is an image.</p>
+                            <p style='text-align: center;'>The supported file formats are 'JPG','JPEG','PNG'.</p>
+                            <p style='text-align: center; color:red;'>${uploadError}</p>
+                            <div class="form-group">
+                                <div class="update-pic-div">
+                                    <img src='${imagePath}' id="previewPhoto">
+                                    <input type="file" id="file" name="image" size="50" required="" />
+                                    <label for="file" id="uploadBtn">Choose Photo</label>
+                                </div> 
+                                <input type="submit" name="submit" id="submit" class="form-submit" value="Yes"/>
+                                <input type="button" name="submit" id="submit" class="form-submit" value="No" onclick="history.back()"/>
+                            </div>           
+                        </form>
+                    </div>               
                 </div>
             </section>
             <br>
@@ -88,7 +106,7 @@
                 </div>
             </div>
         </footer>
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="js/signUp.js"></script>
+        <script src="VENDOR/jquery/jquery.min.js"></script>
+        <script src="JS/update.js"></script>
     </body>
 </html>

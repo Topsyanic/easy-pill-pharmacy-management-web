@@ -28,13 +28,13 @@
             <section class="signup">           
                 <div class="container">
                     <div class="signup-content">
-                            <h2 class="form-title"> Account created successfully</h2>
-                            <p class="detail-box">Your account has been successfully created. You can use the credentials to login.</p>
-                                <br>
-                                <br>
-                                <div class="form-group">
-                                    <input type="submit" name="submit" id="submit" class="form-submit" value="Go to Login Page   " onclick="location.href='login.jsp'"/>
-                                </div>                   
+                        <h2 class="form-title"> Account created successfully</h2>
+                        <p class="detail-box">Your account has been successfully created. You can use the credentials to login.</p>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Go to Login Page   " onclick="location.href = 'login.jsp'"/>
+                        </div>                   
                     </div>
                 </div>
             </section>
@@ -59,21 +59,17 @@
                             <li><a href="#">about us</a></li>
                             <li><a href="#">our services</a></li>
                             <li><a href="#">privacy policy</a></li>
-                            <li><a href="#">affiliate program</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
                         <h4>get help</h4>
                         <ul>
                             <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Pricing</a></li>
-                            <li><a href="#">returns</a></li>
-                            <li><a href="#">order status</a></li>
                             <li><a href="#">payment options</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
-                        <h4>Local Libraries</h4>
+                        <h4>Locations</h4>
                         <ul>
                             <li><a href="#">Colombo 14</a></li>
                             <li><a href="#">Colombo 12</a></li>
@@ -92,7 +88,8 @@
                 </div>
             </div>
         </footer>
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="js/signUp.js"></script>
-    </body>
+    </footer>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/signUp.js"></script>
+</body>
 </html>

@@ -6,7 +6,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +47,7 @@ public class AdminController extends HttpServlet {
         request.setAttribute("userCount","0" );
         request.setAttribute("medicineCount","0" );
         request.setAttribute("orderCount","0" );
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminHome.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminHomePage.jsp");
         dispatcher.forward(request, response);
     }
 }

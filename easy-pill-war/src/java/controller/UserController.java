@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.UserFacade;
-import model.UserIdGenerator;
-import utilities.HashPassword;
+import utilities.UserIdGenerator;
+import utilities.PasswordHasher;
 
 /**
  *
@@ -25,6 +25,10 @@ import utilities.HashPassword;
  */
 public class UserController extends HttpServlet {
 
+    @EJB
+    private UserIdGenerator userIdGenerator;
+    @EJB
+    private PasswordHasher passwordHasher;
     @EJB
     private UserFacade userFacade;
 
@@ -37,11 +41,7 @@ public class UserController extends HttpServlet {
         }
         switch (command) {
             case "USER":
-                redirectAdminHome(request, response);
-            case "DELETEUSER":
-                redirectDeleteUser(request, response);
-            case "CONFIRMDELETE":
-                confirmDeleteUser(request, response);
+                redirectAdminUser(request, response);
 
         }
 
@@ -56,19 +56,21 @@ public class UserController extends HttpServlet {
         }
         switch (command) {
             case "USER":
-                redirectAdminHome(request, response);
+                redirectAdminUser(request, response);
             case "ADDCUSTOMER":
                 addCustomer(request, response);
             case "ADDPHARMACIST":
                 addPharmacist(request, response);
             case "ADDDOCTOR":
                 addDoctor(request, response);
+            case "CONFIRMDELETE":
+                confirmDeleteUser(request, response);
 
         }
 
     }
 
-    private void redirectAdminHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void redirectAdminUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         List<User> customerList = userFacade.getAllCustomers();
         List<User> doctorList = userFacade.getAllDoctors();
@@ -80,19 +82,14 @@ public class UserController extends HttpServlet {
         request.setAttribute("CUSTOMERLIST", customerList);
         request.setAttribute("DOCTORLIST", doctorList);
         request.setAttribute("PHARMACISTLIST", pharmacistList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUser.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUserPage.jsp");
         dispatcher.forward(request, response);
 
     }
 
-    private void redirectDeleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/removeUser.jsp");
-        dispatcher.forward(request, response);
-    }
 
     private void confirmDeleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("userId");
-        System.out.println("THE USER ID IS" + userId);
         try {
             userFacade.removeUser(userId);
         } catch (Exception e) {
@@ -113,18 +110,18 @@ public class UserController extends HttpServlet {
             request.setAttribute("password", request.getParameter("password"));
             request.setAttribute("contact", request.getParameter("contact"));
             request.setAttribute("ErrorMessage", "Email already exists, Please try a different email");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminAddCustomer.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminAddCustomerPage.jsp");
             dispatcher.forward(request, response);
         } else {
-            UserIdGenerator UIDGen = new UserIdGenerator();
+
             user.setFirstName(request.getParameter("firstName"));
             user.setLastName(request.getParameter("lastName"));
             user.setEmail(request.getParameter("email"));
-            user.setPassword(HashPassword.getHash(request.getParameter("password")));
+            user.setPassword(passwordHasher.getHash(request.getParameter("password")));
             user.setAddress(request.getParameter("address"));
             user.setContactNo(request.getParameter("contact"));
             user.setUserRole("customer");
-            user.setUserId(UIDGen.generateNumber());
+            user.setUserId(userIdGenerator.generateNumber());
             userFacade.create(user);
             RequestDispatcher dispatcher = request.getRequestDispatcher("addUserSuccess.jsp");
             dispatcher.forward(request, response);
@@ -143,18 +140,17 @@ public class UserController extends HttpServlet {
             request.setAttribute("password", request.getParameter("password"));
             request.setAttribute("contact", request.getParameter("contact"));
             request.setAttribute("ErrorMessage", "Email already exists, Please try a different email");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminAddPharmacist.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminAddPharmacistPage.jsp");
             dispatcher.forward(request, response);
         } else {
-            UserIdGenerator UIDGen = new UserIdGenerator();
             user.setFirstName(request.getParameter("firstName"));
             user.setLastName(request.getParameter("lastName"));
             user.setEmail(request.getParameter("email"));
-            user.setPassword(HashPassword.getHash(request.getParameter("password")));
+            user.setPassword(passwordHasher.getHash(request.getParameter("password")));
             user.setAddress(request.getParameter("address"));
             user.setContactNo(request.getParameter("contact"));
             user.setUserRole("pharmacist");
-            user.setUserId(UIDGen.generateNumber());
+            user.setUserId(userIdGenerator.generateNumber());
             userFacade.create(user);
             RequestDispatcher dispatcher = request.getRequestDispatcher("addUserSuccess.jsp");
             dispatcher.forward(request, response);
@@ -173,19 +169,18 @@ public class UserController extends HttpServlet {
             request.setAttribute("contact", request.getParameter("contact"));
             request.setAttribute("expertise", request.getParameter("expertise"));
             request.setAttribute("ErrorMessage", "Email already exists, Please try a different email");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminAddDoctor.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/adminAddDoctorPage.jsp");
             dispatcher.forward(request, response);
         } else {
-            UserIdGenerator UIDGen = new UserIdGenerator();
             user.setFirstName(request.getParameter("firstName"));
             user.setLastName(request.getParameter("lastName"));
             user.setEmail(request.getParameter("email"));
-            user.setPassword(HashPassword.getHash(request.getParameter("password")));
+            user.setPassword(passwordHasher.getHash(request.getParameter("password")));
             user.setAddress(request.getParameter("address"));
             user.setContactNo(request.getParameter("contact"));
             user.setExpertise(request.getParameter("expertise"));
             user.setUserRole("doctor");
-            user.setUserId(UIDGen.generateNumber());
+            user.setUserId(userIdGenerator.generateNumber());
             userFacade.create(user);
             RequestDispatcher dispatcher = request.getRequestDispatcher("addUserSuccess.jsp");
             dispatcher.forward(request, response);

@@ -36,11 +36,11 @@
             <c:url var="orderLink" value="OrderController">
                 <c:param name="command" value="ORDER"/>
             </c:url>
-            <c:url var="addCustomer" value="/adminAddCustomer.jsp">
+            <c:url var="addCustomer" value="/adminAddCustomerPage.jsp">
             </c:url>
-            <c:url var="addPharmacist" value="/adminAddPharmacist.jsp">
+            <c:url var="addPharmacist" value="/adminAddPharmacistPage.jsp">
             </c:url>
-            <c:url var="addDoctor" value="/adminAddDoctor.jsp">
+            <c:url var="addDoctor" value="/adminAddDoctorPage.jsp">
             </c:url>
             <c:url var="logoutLink" value="LogoutServlet">
             </c:url>
@@ -131,7 +131,7 @@
                                         </thead>
                                         <tbody id="myTable">
                                             <c:forEach var="tempList" items="${CUSTOMERLIST}">
-                                                <c:url var="deleteLink" value="UserController">
+                                                <c:url var="deleteLink" value="/adminRemoveUserPage.jsp">
                                                     <c:param name="command" value="DELETEUSER"/>
                                                     <c:param name="firstName" value="${tempList.firstName}"/>
                                                     <c:param name="lastName" value="${tempList.lastName}"/>
@@ -176,7 +176,7 @@
                                         </thead>
                                         <tbody id="myTable1">
                                             <c:forEach var="tempList2" items="${DOCTORLIST}">
-                                                <c:url var="deleteLink" value="UserController">
+                                                <c:url var="deleteLink" value="/adminRemoveUserPage.jsp">
                                                     <c:param name="command" value="DELETEUSER"/>
                                                     <c:param name="firstName" value="${tempList2.firstName}"/>
                                                     <c:param name="lastName" value="${tempList2.lastName}"/>
@@ -221,7 +221,7 @@
                                         </thead>
                                         <tbody id="myTable2">
                                             <c:forEach var="tempList3" items="${PHARMACISTLIST}">
-                                                <c:url var="deleteLink" value="UserController">
+                                                <c:url var="deleteLink" value="/adminRemoveUserPage.jsp">
                                                     <c:param name="command" value="DELETEUSER"/>
                                                     <c:param name="firstName" value="${tempList3.firstName}"/>
                                                     <c:param name="lastName" value="${tempList3.lastName}"/>

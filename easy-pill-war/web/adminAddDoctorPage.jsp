@@ -41,8 +41,7 @@
                                     <input type="email" class="form-input" name="email" required id="email" placeholder="Your Email" value="${email}"/>
                                 </div>
                                 <div class="form-group">
-                                    <input type="number" class="form-input" name="contact" required id="name" placeholder="Contact Number" value="${contact}"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                                           maxlength = "10"/>
+                                    <input type="tel" class="form-input" name="contact" required id="name" placeholder="Contact Number Ex: 0712345689" value="${contact}" pattern="[0]{1}[7,1]{1}[0-9]{8}"/>
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-input" name="address" required id="name" placeholder="Address" value="${address}"/>
@@ -89,21 +88,17 @@
                                 <li><a href="#">about us</a></li>
                                 <li><a href="#">our services</a></li>
                                 <li><a href="#">privacy policy</a></li>
-                                <li><a href="#">affiliate program</a></li>
                             </ul>
                         </div>
                         <div class="footer-col">
                             <h4>get help</h4>
                             <ul>
                                 <li><a href="#">FAQ</a></li>
-                                <li><a href="#">Pricing</a></li>
-                                <li><a href="#">returns</a></li>
-                                <li><a href="#">order status</a></li>
                                 <li><a href="#">payment options</a></li>
                             </ul>
                         </div>
                         <div class="footer-col">
-                            <h4>Local Libraries</h4>
+                            <h4>Locations</h4>
                             <ul>
                                 <li><a href="#">Colombo 14</a></li>
                                 <li><a href="#">Colombo 12</a></li>

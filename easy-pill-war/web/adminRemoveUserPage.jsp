@@ -19,10 +19,6 @@
         <link rel="stylesheet" href="CSS/footer.css">
     </head>
     <body>
-        <c:url var="deleteLink" value="UserController">
-            <c:param name="command" value="CONFIRMDELETE"/>
-            <c:param name="userId" value='<%=request.getParameter("userId")%>'/>
-        </c:url>
         <br>
         <br>
         <br>
@@ -33,20 +29,25 @@
             <section class="signup">           
                 <div class="container">
                     <div class="signup-content">
-                        <h2 class="form-title">Remove User</h2>
-                        <div class ='center'>
-                            <p class='verifyDesc'><%=request.getParameter("firstName")%> <%=request.getParameter("lastName")%></p>
-                        </div>
-                        <p style='text-align: center; padding-top: 10px;'><%=request.getParameter("email")%></p>
-                        <p style='text-align: center; padding-top: 10px;'> Do you want to remove this user ?</p>
+                        <form action="UserController" method="POST"  class="signup-form">
+                            <input name='command' value='CONFIRMDELETE' hidden>
+                            <input name='userId' value='<%=request.getParameter("userId")%>' hidden>
+                            <h2 class="form-title">Remove User</h2>
+                            <p style='text-align: center; margin-bottom: 15px;'>Are you sure you want to remove the user below?</p>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <div class ='center'>
+                                        <p class='verifyDesc'><%=request.getParameter("firstName")%> <%=request.getParameter("lastName")%></p>
+                                    </div>
+                                    <p style='text-align: center; padding-top: 10px;'><%=request.getParameter("email")%></p>
+                                </div>
+                                <input type="submit" name="submit" id="submit" class="form-submit" value="Yes "/>
+                                <input type="button" name="submit" id="submit" class="form-submit" value="No " onclick="history.back()"/>
+                            </div>           
+                        </form>
                         <br>
                         <br>
-                        <div class="form-group">
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Yes" onclick="location.href = '${deleteLink}'"/>
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="No" onclick="history.back()"/>
-                        </div>                   
                     </div>
-                </div>
             </section>
             <br>
             <br>
@@ -69,21 +70,17 @@
                             <li><a href="#">about us</a></li>
                             <li><a href="#">our services</a></li>
                             <li><a href="#">privacy policy</a></li>
-                            <li><a href="#">affiliate program</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
                         <h4>get help</h4>
                         <ul>
                             <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Pricing</a></li>
-                            <li><a href="#">returns</a></li>
-                            <li><a href="#">order status</a></li>
                             <li><a href="#">payment options</a></li>
                         </ul>
                     </div>
                     <div class="footer-col">
-                        <h4>Local Libraries</h4>
+                        <h4>Locations</h4>
                         <ul>
                             <li><a href="#">Colombo 14</a></li>
                             <li><a href="#">Colombo 12</a></li>

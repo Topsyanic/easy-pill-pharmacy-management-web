@@ -1,3 +1,14 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 9, 2021, 10:48:10 AM
+    Author     : Raaid
+*/
+
+
 /* @extend display-flex; */
 display-flex, .display-flex, .display-flex-center {
     display: flex;
@@ -14,49 +25,49 @@ list-type-ulli {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 300;
-    src: url("../FONTS/montserrat/Montserrat-Light.ttf");
+    src: url("../fonts/montserrat/Montserrat-Light.ttf");
     /* IE9 Compat Modes */ }
 @font-face {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 400;
-    src: url("../FONTS/montserrat/Montserrat-Regular.ttf");
+    src: url("../fonts/montserrat/Montserrat-Regular.ttf");
     /* IE9 Compat Modes */ }
 @font-face {
     font-family: 'Montserrat';
     font-style: italic;
     font-weight: 400;
-    src: url("../FONTS/montserrat/Montserrat-Italic.ttf");
+    src: url("../fonts/montserrat/Montserrat-Italic.ttf");
     /* IE9 Compat Modes */ }
 @font-face {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
-    src: url("../FONTS/montserrat/Montserrat-Medium.ttf");
+    src: url("../fonts/montserrat/Montserrat-Medium.ttf");
     /* IE9 Compat Modes */ }
 @font-face {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
-    src: url("../FONTS/montserrat/Montserrat-SemiBold.ttf");
+    src: url("../fonts/montserrat/Montserrat-SemiBold.ttf");
     /* IE9 Compat Modes */ }
 @font-face {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 700;
-    src: url("../FONTS/montserrat/Montserrat-Bold.ttf");
+    src: url("../fonts/montserrat/Montserrat-Bold.ttf");
     /* IE9 Compat Modes */ }
 @font-face {
     font-family: 'Montserrat';
     font-style: italic;
     font-weight: 700;
-    src: url("../FONTS/montserrat/Montserrat-BoldItalic.ttf");
+    src: url("../fonts/montserrat/Montserrat-BoldItalic.ttf");
     /* IE9 Compat Modes */ }
 @font-face {
     font-family: 'Montserrat';
     font-style: italic;
     font-weight: 900;
-    src: url("../FONTS/montserrat/montserrat-v12-latin-900.ttf"), url("../FONTS/montserrat/montserrat-v12-latin-900.eot") format("embedded-opentype"), url("../FONTS/montserrat/montserrat-v12-latin-900.svg") format("woff2"), url("../FONTS/montserrat/montserrat-v12-latin-900.woff") format("woff"), url("../FONTS/montserrat/montserrat-v12-latin-900.woff2") format("truetype"); }
+    src: url("../fonts/montserrat/montserrat-v12-latin-900.ttf"), url("../fonts/montserrat/montserrat-v12-latin-900.eot") format("embedded-opentype"), url("../fonts/montserrat/montserrat-v12-latin-900.svg") format("woff2"), url("../fonts/montserrat/montserrat-v12-latin-900.woff") format("woff"), url("../fonts/montserrat/montserrat-v12-latin-900.woff2") format("truetype"); }
 a:focus, a:active {
     text-decoration: none;
     outline: none;
@@ -162,24 +173,25 @@ a:focus, a:active {
 }
 
 
-.profile-pic-div{
-    height: 250px;
-    width: 150px;
+
+.update-pic-div{
+    height: 300px;
+    width: 200px;
     display:flex;
     align-items: center;
     margin-left: 50%;
-    margin-top: 17%;
-    transform: translate(-50%, -50%);
+    margin-top: 15%;
+    transform: translate(-50%, -15%);
     border-radius: 5%;
     overflow: hidden;
     /*    box-shadow: 0px 0px 5px 1px;*/
-    box-shadow: -1px 0 purple, 0 1px purple, 1px 0 purple, 0 -1px purple;
-    bottom: 830px;
+    box-shadow: -1px 0 #1b4b80, 0 1px #1b4b80, 1px 0 #1b4b80, 0 -1px #1b4b80;
 }
 
 #previewPhoto{
     height: 100%;
     width: 100%; 
+    margin-bottom: 0px;
 }
 
 #file{
@@ -196,7 +208,7 @@ a:focus, a:active {
     left: 50%;
     transform: translatex(-50%);
     text-align: center;
-    background: #5A2E98;
+    background: #1b4b80;
     color: white;
     line-height: 30px;
     font-family: sans-serif;
@@ -340,21 +352,21 @@ body {
     color:#F4EFFA;
 }
 .form-title{
-    color:#1b4b80;
+    color: #1b4b80;
 }
 .form-amount{
     color:#5A2E98;
     align-content: left;
 }
 .title-h1{
-    color: #1b4b80;
+    color:#5A2E98;
     font-weight:lighter;
     padding-left: 50px;
     font-family: 'Oswald', sans-serif;
 
 
 }
-.title-h1-large{
+.title-h1-large {
     color: #1b4b80;
     font-weight: lighter;
     font-size: 350%;
@@ -363,14 +375,17 @@ body {
 
 
 }
-h1{
-    font-weight:lighter;
+
+h1 {
+    font-weight: lighter;
     padding-left: 50px;
     font-family: 'Oswald', sans-serif;
 }
-.alt-color{
-    color:#5892d1;
+
+.alt-color {
+    color: #5892d1;
 }
+
 .main{
     padding-top: 50px
 }
@@ -396,26 +411,45 @@ h1{
     color: #BAADCC;
     opacity: 1; /* Firefox */
 }
-
-.form-submit {
+.form-input-desc {
     width: 100%;
+    border: 1px solid #ebebeb;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     -o-border-radius: 5px;
     -ms-border-radius: 5px;
-    margin-top: 50px;
     padding: 17px 20px;
     box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 500;
+    color: #713ABF; 
+
+    background-color:#EBE3F6;}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #BAADCC;
+    opacity: 1; /* Firefox */
+}
+
+.form-submit {
+    width: 20%;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    padding: 17px 20px;
+    box-sizing: border-box;
+    margin-right: 15px;
     font-size: 14px;
     font-weight: 700;
     color: #fff;
     text-transform: uppercase;
     border: none;
-    background-color:#1b4b80;
-}
+    background-color: #1b4b80;}
 
-.form-submit:hover {
+.form-submit:hover{
     background-color: #5892d1;
 }
 
@@ -476,10 +510,6 @@ input[type=checkbox]:not(old):checked + label > span:before {
 .term-service {
     color: #555; }
 
-.detail-box{
-    text-align: center;
-}
-
 .loginhere {
     color: #555;
     font-weight: 500;
@@ -510,14 +540,6 @@ input[type=checkbox]:not(old):checked + label > span:before {
 .radio-labels{
     color:#5A2E98;
 }
-.login-here-link-text {
-    font-weight: 700;
-    color: #1b4b80;
-    text-decoration: none;
-}
-.login-here-link-text:hover{
-    color: #5892d1;
-}
 
 body:: -webkit-scrollbar{
     width: 0.25rem;
@@ -528,6 +550,93 @@ body::-webkit-scrollbar-track{
 }
 body::-webkit-scrollbar-thumb{
     background: #6649b8;
+}
+
+
+.verifyImage{
+    margin:auto;
+    width:200px;
+    height:200px;
+    border-radius:100px;
+}
+.verifyDesc{
+    font-size: 18px;
+    color:#713ABF; 
+}
+.center{
+    margin-top: 10px;
+    text-align: center;
+}
+.imageHolder{
+    display:flex;
+    align-items: center;
+}
+
+.ban-message{
+    width: 100%;
+    padding-top: 0px;
+    text-align: left;
+    padding-left: 5px;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 500;
+    height:100px;
+    color: #713ABF;
+}
+.desc-message{
+    width: 100%;
+    padding-top: 0px;
+    text-align: left;
+    padding-left: 5px;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 500;
+    height:400px;
+    color: #1b4b80;
+    background-color: #f5f5f5;
+}
+.desc-message2{
+    width: 100%;
+    padding-top: 0px;
+    text-align: left;
+    padding-left: 5px;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 500;
+    height:150px;
+    color: #1b4b80;
+    background-color: #f5f5f5;
+}
+.metric-text{
+    padding-right: 10px
+}
+.dropdown{
+/*    margin-right: 375px;*/
+    padding: 5px 10px;
+    text-align: center;
+    color: grey;
+    border-radius: 2px;
+    border-color: grey;
+    font-size: 15px;
+    
 }
 
 /*# sourceMappingURL=style.css.map */

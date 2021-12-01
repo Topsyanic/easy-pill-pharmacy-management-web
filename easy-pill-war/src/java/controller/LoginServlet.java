@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.UserFacade;
-import utilities.HashPassword;
+import utilities.PasswordHasher;
 
 /**
  *
@@ -23,6 +23,9 @@ import utilities.HashPassword;
  */
 public class LoginServlet extends HttpServlet {
 
+    @EJB
+    private PasswordHasher passwordHasher;
+   
     @EJB
     private UserFacade userFacade;
 
@@ -35,12 +38,12 @@ public class LoginServlet extends HttpServlet {
 
         if (user == null) {
             request.setAttribute("ErrorMessage", "Invalid credentials, Please sign up if u do not have an account.");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/loginPage.jsp");
             dispatcher.forward(request, response);
-        } else if (!HashPassword.getHash(password).equalsIgnoreCase(user.getPassword())) {
+        } else if (!passwordHasher.getHash(password).equalsIgnoreCase(user.getPassword())) {
             request.setAttribute("ErrorMessage", "Password is incorrect. Please Try Again.");
             request.setAttribute("email",email);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/loginPage.jsp");
             dispatcher.forward(request, response);
         } else {
             HttpSession session = request.getSession();
