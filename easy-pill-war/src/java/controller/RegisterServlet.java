@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.UserFacade;
 import utilities.PasswordHasher;
+import utilities.UserEmailValidator;
 import utilities.UserIdGenerator;
 
 /**
@@ -23,6 +24,9 @@ import utilities.UserIdGenerator;
  */
 public class RegisterServlet extends HttpServlet {
 
+    @EJB
+    private UserEmailValidator userEmailValidator;
+    
     @EJB
     private PasswordHasher passwordHasher;
     @EJB
@@ -35,7 +39,7 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         String userRole = request.getParameter("command");
 
-        if (userFacade.checkEmailExists(request.getParameter("email"))) {
+        if (userEmailValidator.emailExists(request.getParameter("email"))) {
             request.setAttribute("firstName", request.getParameter("firstName"));
             request.setAttribute("lastName", request.getParameter("lastName"));
             request.setAttribute("email", request.getParameter("email"));

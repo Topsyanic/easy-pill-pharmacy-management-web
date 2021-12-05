@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.SupplierFacade;
+import utilities.SupplierEmailValidator;
 import utilities.SupplierIdGenerator;
 
 /**
@@ -23,6 +24,9 @@ import utilities.SupplierIdGenerator;
  * @author Topsy
  */
 public class SupplierController extends HttpServlet {
+
+    @EJB
+    private SupplierEmailValidator supplierEmailValidator;
 
     @EJB
     private SupplierIdGenerator supplierIdGenerator;
@@ -101,7 +105,7 @@ public class SupplierController extends HttpServlet {
 
     private void addSupplier(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (supplierFacade.checkEmailExists(request.getParameter("email"))) {
+        if (supplierEmailValidator.emailExists(request.getParameter("email"))) {
             request.setAttribute("name", request.getParameter("name"));
             request.setAttribute("address", request.getParameter("address"));
             request.setAttribute("contact", request.getParameter("contact"));

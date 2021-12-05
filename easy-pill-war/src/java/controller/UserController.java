@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import model.UserFacade;
 import utilities.UserIdGenerator;
 import utilities.PasswordHasher;
+import utilities.UserEmailValidator;
 
 /**
  *
@@ -26,11 +27,14 @@ import utilities.PasswordHasher;
 public class UserController extends HttpServlet {
 
     @EJB
+    private UserEmailValidator userEmailValidator;
+    @EJB
     private UserIdGenerator userIdGenerator;
     @EJB
     private PasswordHasher passwordHasher;
     @EJB
     private UserFacade userFacade;
+    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -101,7 +105,7 @@ public class UserController extends HttpServlet {
 
     private void addCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
-        if (userFacade.checkEmailExists(request.getParameter("email"))) {
+        if (userEmailValidator.emailExists(request.getParameter("email"))) {
             System.out.println("The email is" + request.getParameter("email"));
             request.setAttribute("firstName", request.getParameter("firstName"));
             request.setAttribute("lastName", request.getParameter("lastName"));
@@ -132,7 +136,7 @@ public class UserController extends HttpServlet {
 
     private void addPharmacist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
-        if (userFacade.checkEmailExists(request.getParameter("email"))) {
+        if (userEmailValidator.emailExists(request.getParameter("email"))) {
             request.setAttribute("firstName", request.getParameter("firstName"));
             request.setAttribute("lastName", request.getParameter("lastName"));
             request.setAttribute("email", request.getParameter("email"));
@@ -160,7 +164,7 @@ public class UserController extends HttpServlet {
 
     private void addDoctor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
-        if (userFacade.checkEmailExists(request.getParameter("email"))) {
+        if (userEmailValidator.emailExists(request.getParameter("email"))) {
             request.setAttribute("firstName", request.getParameter("firstName"));
             request.setAttribute("lastName", request.getParameter("lastName"));
             request.setAttribute("email", request.getParameter("email"));

@@ -31,15 +31,11 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
 
-    public boolean checkEmailExists(String email) {
+    public List<User> getUsersByEmail(String email) {
         Query q = em.createNamedQuery("User.findByEmail");
         q.setParameter(1, email);
-        List a = q.getResultList();
-        if (a.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        List<User> a = q.getResultList();
+        return a;
     }
 
     public User getAuthenticatedUser(String email) {

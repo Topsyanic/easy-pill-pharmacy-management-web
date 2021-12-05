@@ -32,7 +32,7 @@
                             <input name='command' value='CONFIRMADDMEDICINE' hidden>
                             <div class="form-group">
                                 <div class="update-pic-div">
-                                    <img src='${imagePath}' id="previewPhoto">
+                                    <img src="IMG/thumbnail.jpg" id="previewPhoto">
                                     <input type="file" id="file" name="image" size="50" required="" />
                                     <label for="file" id="uploadBtn">Choose Photo</label>
                                 </div> 
