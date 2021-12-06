@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Validator;
 import model.UserFacade;
 import utilities.UserIdGenerator;
 import utilities.PasswordHasher;
@@ -26,6 +27,8 @@ import utilities.UserEmailValidator;
  */
 public class UserController extends HttpServlet {
 
+    Validator validator;
+
     @EJB
     private UserEmailValidator userEmailValidator;
     @EJB
@@ -34,7 +37,6 @@ public class UserController extends HttpServlet {
     private PasswordHasher passwordHasher;
     @EJB
     private UserFacade userFacade;
-    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -91,14 +93,9 @@ public class UserController extends HttpServlet {
 
     }
 
-
     private void confirmDeleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("userId");
-        try {
-            userFacade.removeUser(userId);
-        } catch (Exception e) {
-            System.out.println("Failed to delete User ;" + e);
-        }
+        userFacade.removeUser(userId);
         request.getRequestDispatcher("deleteUserSuccess.jsp").include(request, response);
 
     }

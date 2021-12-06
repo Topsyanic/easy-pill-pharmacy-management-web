@@ -23,7 +23,7 @@ public class SupplierEmailValidator implements EmailValidator {
     @EJB
     private SupplierFacade supplierFacade;
     
-
+    
     @Override
     public boolean emailExists(String email) {
         List<Supplier> supplierList = supplierFacade.getSuppliersByEmail(email);

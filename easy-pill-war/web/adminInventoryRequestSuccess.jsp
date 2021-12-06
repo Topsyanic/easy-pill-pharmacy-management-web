@@ -1,6 +1,6 @@
 <%-- 
-    Document   : adminUpdateMedicineDescriptionPage
-    Created on : Nov 30, 2021, 2:47:57 PM
+    Document   : adminInventoryRequestSucces
+    Created on : Dec 6, 2021, 2:47:19 PM
     Author     : Topsy
 --%>
 
@@ -12,46 +12,34 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Update Medicine Description</title>
+        <title>Inventory Request Sent Successfully</title>
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
         <link rel="stylesheet" href="CSS/updateMedicineImage.css">
         <link rel="stylesheet" href="CSS/footer.css">
     </head>
     <body>
-        <c:url var="medicineLink" value="MedicineController">
-            <c:param name="command" value="MEDICINE"/>
+        <c:url var="supplierLink" value="SupplierController">
+            <c:param name="command" value="SUPPLIER"/>
         </c:url>
         <br>
         <br>
         <br>
         <h1 class="title-h1-large" >EASY<span class='alt-color'>PILL</span></h1>
-        <img class="reading3-svg" src="IMG/update1.svg" />
-        <img class="watching-svg" src="IMG/update2.svg" />
+        <img class="reading3-svg" src="IMG/happy1.svg" />
+        <img class="watching-svg" src="IMG/happy2.svg" />
         <div class="main">
             <section class="signup">           
                 <div class="container">
                     <div class="signup-content">
-                        <form action="MedicineController" method="POST"  class="signup-form">
-                            <input name='command' value='UPDATEMEDICINE' hidden>
-                            <input name='option' value='description' hidden>
-                            <input name='name' value='${name}' hidden>
-                            <input name='medicineId' value='${medicineId}' hidden>
-                            <h2 class="form-title">Update Medicine Description</h2>
-                            <p style='text-align: center; margin-bottom: 15px;'>Select Supplier</p>
-                            <label class="metric-text"  for="supplier"><p style="text-align:center">Select Supplier</p> <select  name="supplier" class="dropdown">
-                                    <c:forEach var="sup" items="${supplierList}">
-                                        <option  value="${sup.supplierId}">${sup.name}(${sup.supplierId})</option>
-                                    </c:forEach>
-                                </select></label>
-                            <p style='text-align: center; margin-bottom: 15px;'>You can edit the description below.</p>
-                            <div class="form-group">
-                                <textarea type="text" class="desc-message1" name="newDesc" required id="name" placeholder="New Description">${description}</textarea> 
-                                <input type="submit" name="submit" id="submit" class="form-submit" value="Yes"/>
-                                <input type="button" name="submit" id="submit" class="form-submit" value="No" onclick="history.back()"/>
-                            </div>           
-                        </form>
-                    </div>               
+                        <h2 class="form-title"> Inventory Request Sent Successfully</h2>
+                        <p style='text-align: center;'>An email has been sent to the selected suppliers email address.</p>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="OK" onclick="location.href = '${supplierLink}'"/>
+                        </div>                   
+                    </div>
                 </div>
             </section>
             <br>
@@ -65,7 +53,7 @@
             <br>
             <br>
         </div>
-        <!--         FOOTER      -->
+                        <!--         FOOTER      -->
         <footer class="footer">
             <div class="footer-container">
                 <div class="footer-row">

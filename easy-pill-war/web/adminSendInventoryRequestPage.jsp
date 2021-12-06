@@ -1,6 +1,6 @@
 <%-- 
-    Document   : adminUpdateMedicineDescriptionPage
-    Created on : Nov 30, 2021, 2:47:57 PM
+    Document   : adminSendInventoryRequestPage
+    Created on : Dec 6, 2021, 2:01:27 PM
     Author     : Topsy
 --%>
 
@@ -12,16 +12,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Update Medicine Description</title>
-        <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+        <title>Send Inventory Request Page</title>
+        <link rel="stylesheet" href="FONTS/material-icon/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
         <link rel="stylesheet" href="CSS/updateMedicineImage.css">
         <link rel="stylesheet" href="CSS/footer.css">
     </head>
     <body>
-        <c:url var="medicineLink" value="MedicineController">
-            <c:param name="command" value="MEDICINE"/>
+        <c:url var="supplierLink" value="SupplierController">
+            <c:param name="command" value="SUPPLIER"/>
         </c:url>
+
         <br>
         <br>
         <br>
@@ -32,21 +33,20 @@
             <section class="signup">           
                 <div class="container">
                     <div class="signup-content">
-                        <form action="MedicineController" method="POST"  class="signup-form">
-                            <input name='command' value='UPDATEMEDICINE' hidden>
-                            <input name='option' value='description' hidden>
-                            <input name='name' value='${name}' hidden>
-                            <input name='medicineId' value='${medicineId}' hidden>
-                            <h2 class="form-title">Update Medicine Description</h2>
-                            <p style='text-align: center; margin-bottom: 15px;'>Select Supplier</p>
-                            <label class="metric-text"  for="supplier"><p style="text-align:center">Select Supplier</p> <select  name="supplier" class="dropdown">
-                                    <c:forEach var="sup" items="${supplierList}">
-                                        <option  value="${sup.supplierId}">${sup.name}(${sup.supplierId})</option>
-                                    </c:forEach>
-                                </select></label>
-                            <p style='text-align: center; margin-bottom: 15px;'>You can edit the description below.</p>
+                        <form action="SupplierController" method="POST"  class="signup-form">
+                            <input name='command' value='NEWREQUEST' hidden>
+                            <h2 class="form-title">Send New Request</h2>
+                            <p style='text-align: center; margin-bottom: 15px;'>Select the supplier below.</p>
+                            <div class="form-group"> 
+                                <label class="metric-text"  for="supplier"><p style="text-align:center">Select Supplier</p> <select  name="supplier" class="dropdown">
+                                        <c:forEach var="sup" items="${SUPPLIERLIST}">
+                                            <option  value="${sup.supplierId}">${sup.name}(${sup.email})</option>
+                                        </c:forEach>
+                                    </select></label>
+                            </div>
+                            <p style='text-align: center; margin-bottom: 15px;'>You can enter the  message below.</p>
                             <div class="form-group">
-                                <textarea type="text" class="desc-message1" name="newDesc" required id="name" placeholder="New Description">${description}</textarea> 
+                                <textarea type="text" class="desc-message" name="message" required id="name" placeholder="Email Body"></textarea> 
                                 <input type="submit" name="submit" id="submit" class="form-submit" value="Yes"/>
                                 <input type="button" name="submit" id="submit" class="form-submit" value="No" onclick="history.back()"/>
                             </div>           
@@ -104,7 +104,7 @@
                 </div>
             </div>
         </footer>
-        <script src="VENDOR/jquery/jquery.min.js"></script>
-        <script src="JS/update.js"></script>
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="js/update.js"></script>
     </body>
 </html>

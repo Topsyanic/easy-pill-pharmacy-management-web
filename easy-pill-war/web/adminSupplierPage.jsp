@@ -36,6 +36,9 @@
             <c:url var="orderLink" value="OrderController">
                 <c:param name="command" value="ORDER"/>
             </c:url>
+            <c:url var="requestLink" value="SupplierController">
+                <c:param name="command" value="REQUEST"/>
+            </c:url>
             <c:url var="addSupplier" value="/adminAddSupplierPage.jsp">
             </c:url>
             <c:url var="logoutLink" value="LogoutServlet">
@@ -140,7 +143,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3>Inventory Requests</h3>
-                                <a href='${addMedicine}' class="customButton">Add <span class="las la-plus"></span></a> 
+                                <a href='${requestLink}' class="customButton">Add <span class="las la-plus"></span></a> 
                                 <input class="search-box" id="search1" placeholder="Search..." >
                             </div>
                             <div class="card-body">
@@ -148,27 +151,18 @@
                                     <table width="100%" id="tableData2">
                                         <thead>
                                             <tr>
-                                                <td>Name</td>
-                                                <td>Description</td>
-                                                <td>Weight</td>
-                                                <td>Price</td>
-                                                <td>Quantity</td>
+                                                <td>Request Id</td>
+                                                <td>Message</td>
+                                                <td>Date</td>
                                                 <td>Supplier ID</td>
-                                                <td>Option</td>
                                         </thead>
                                         <tbody id="myTable1">
-                                            <c:forEach var="tempList2" items="${OUTSTOCKLIST}">
-                                                <c:url var="editLink" value="/adminMedicineOptionsPage.jsp">
-                                                    <c:param name="medicineId" value="${tempList2.medicineId}"/>
-                                                </c:url>
+                                            <c:forEach var="tempList2" items="${REQUESTLIST}">
                                                 <tr>
-                                                    <td>${tempList2.name}</td>
-                                                    <td>${tempList2.description}</td>
-                                                    <td>${tempList2.weight}</td>
-                                                    <td>${tempList2.price}</td>
-                                                    <td>${tempList2.quantity}</td>
+                                                    <td>${tempList2.requestId}</td>
+                                                    <td>${tempList2.message}</td>
+                                                    <td>${tempList2.date}</td>
                                                     <td>${tempList2.supplierId}</td>
-                                                    <td><a href='${editLink}' class="customButton"> <span class="las la-edit"></span></a></td>
                                                 </tr> 
                                             </c:forEach>
                                         </tbody>

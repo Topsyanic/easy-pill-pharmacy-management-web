@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Medicine.findAll", query = "SELECT m FROM Medicine m")
-    , @NamedQuery(name = "Medicine.findByMedicineId", query = "SELECT m FROM Medicine m WHERE m.medicineId = ?1")
+    , @NamedQuery(name = "Medicine.findByMedicineId", query = "SELECT m FROM Medicine m WHERE m.medicineId = :medicineId")
     , @NamedQuery(name = "Medicine.findByName", query = "SELECT m FROM Medicine m WHERE m.name = :name")
     , @NamedQuery(name = "Medicine.findByDescription", query = "SELECT m FROM Medicine m WHERE m.description = :description")
     , @NamedQuery(name = "Medicine.findBySupplierId", query = "SELECT m FROM Medicine m WHERE m.supplierId = :supplierId")
@@ -35,11 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Medicine.findByImagePath", query = "SELECT m FROM Medicine m WHERE m.imagePath = :imagePath")
     , @NamedQuery(name = "Medicine.findByQuantity", query = "SELECT m FROM Medicine m WHERE m.quantity = :quantity")
     , @NamedQuery(name = "Medicine.findAllInStock", query = "SELECT m FROM Medicine m WHERE m.quantity > ?1 ")
-    , @NamedQuery(name = "Medicine.removeMedicine", query = "DELETE  FROM Medicine m WHERE m.medicineId = ?1")
-    , @NamedQuery(name = "Medicine.updateName", query = "UPDATE Medicine m SET m.name = ?1 WHERE m.medicineId = ?2")
-    , @NamedQuery(name = "Medicine.updateDescription", query = "UPDATE Medicine m SET m.description = ?1 WHERE m.medicineId = ?2")
-    , @NamedQuery(name = "Medicine.updatePrice", query = "UPDATE Medicine m SET m.price = ?1 WHERE m.medicineId = ?2")
-    , @NamedQuery(name = "Medicine.updateQuantity", query = "UPDATE Medicine m SET m.quantity = ?1 WHERE m.medicineId = ?2")
     , @NamedQuery(name = "Medicine.findAllOutOfStock", query = "SELECT m FROM Medicine m WHERE m.quantity = ?1 ")
 })
 public class Medicine implements Serializable {

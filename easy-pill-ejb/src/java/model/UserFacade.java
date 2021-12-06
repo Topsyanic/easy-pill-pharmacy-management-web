@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+
 /**
  *
  * @author Topsy
@@ -71,15 +72,9 @@ public class UserFacade extends AbstractFacade<User> {
         return a;
     }
 
-    public boolean removeUser(String userId) {
-        Query q = em.createNamedQuery("User.removeByUserId");
-        q.setParameter(1, userId);
-        try {
-            q.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    public void removeUser(String userId) {
+        User u = em.find(User.class, userId);
+        em.remove(em.merge(u));
     }
 
 }

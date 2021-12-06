@@ -5,17 +5,24 @@
  */
 package controller;
 
+import entities.InventoryRequests;
 import entities.Supplier;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.InventoryRequestsFacade;
 import model.SupplierFacade;
+import utilities.Mail;
 import utilities.SupplierEmailValidator;
 import utilities.SupplierIdGenerator;
 
@@ -24,6 +31,9 @@ import utilities.SupplierIdGenerator;
  * @author Topsy
  */
 public class SupplierController extends HttpServlet {
+
+    @EJB
+    private InventoryRequestsFacade inventoryRequestsFacade;
 
     @EJB
     private SupplierEmailValidator supplierEmailValidator;
@@ -47,6 +57,9 @@ public class SupplierController extends HttpServlet {
             case "SUPPLIEROPTION":
                 redirectSupplierOptionSelection(request, response);
                 break;
+            case "REQUEST":
+                redirectSendInventoryRequestPage(request, response);
+                break;
         }
 
     }
@@ -54,22 +67,29 @@ public class SupplierController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String command = request.getParameter("command");
-        if (command == null) {
-            command = "SUPPLIER";
-        }
-        switch (command) {
-            case "MEDICINE":
-                redirectAdminSupplier(request, response);
-            case "ADDSUPPLIER":
-                addSupplier(request, response);
-            case "DELETESUPPLIER":
-                deleteSupplier(request, response);
-                break;
-            case "UPDATESUPPLIER":
-                confirmUpdateSupplier(request, response);
-                break;
+        try {
+            String command = request.getParameter("command");
+            if (command == null) {
+                command = "SUPPLIER";
+            }
+            switch (command) {
+                case "MEDICINE":
+                    redirectAdminSupplier(request, response);
+                case "ADDSUPPLIER":
+                    addSupplier(request, response);
+                case "DELETESUPPLIER":
+                    deleteSupplier(request, response);
+                    break;
+                case "UPDATESUPPLIER":
+                    confirmUpdateSupplier(request, response);
+                    break;
+                case "NEWREQUEST":
+                    sendInventoryRequest(request, response);
+                    break;
 
+            }
+        } catch (MessagingException ex) {
+            Logger.getLogger(SupplierController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -79,6 +99,8 @@ public class SupplierController extends HttpServlet {
         request.setAttribute("username", (String) session.getAttribute("UserFirstName") + " " + (String) session.getAttribute("UserLastName"));
         List<Supplier> supplierList = supplierFacade.findAll();
         request.setAttribute("SUPPLIERLIST", supplierList);
+         List<InventoryRequests> requestList = inventoryRequestsFacade.findAll();
+        request.setAttribute("REQUESTLIST", requestList);
         request.setAttribute("supplierCount", supplierList.size());
         request.setAttribute("requestCount", "12");
 
@@ -121,8 +143,8 @@ public class SupplierController extends HttpServlet {
             supplier.setSupplierId(supplierIdGenerator.generateNumber());
 
             supplierFacade.create(supplier);
-            RequestDispatcher dispatcher =  request.getRequestDispatcher("addSupplierSuccess.jsp");
-            dispatcher.forward(request,response);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("addSupplierSuccess.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -182,6 +204,32 @@ public class SupplierController extends HttpServlet {
         request.setAttribute("email", supplier.getEmail());
         request.setAttribute("supplierId", supplierId);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminRemoveSupplierPage.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void redirectSendInventoryRequestPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        request.setAttribute("username", (String) session.getAttribute("UserFirstName") + " " + (String) session.getAttribute("UserLastName"));
+        List<Supplier> supplierList = supplierFacade.findAll();
+        request.setAttribute("SUPPLIERLIST", supplierList);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminSendInventoryRequestPage.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void sendInventoryRequest(HttpServletRequest request, HttpServletResponse response) throws MessagingException, ServletException, IOException {
+        String supplierId = request.getParameter("supplier");
+        String message = request.getParameter("message");
+        Supplier supplier = supplierFacade.getSupplierById(supplierId);
+        Mail.sendMail(supplier.getEmail(), message + "\n\nThank You,\nEasy-Pill Team");
+        InventoryRequests inventoryRequest = new InventoryRequests();
+        inventoryRequest.setDate(LocalDate.now().toString());
+        inventoryRequest.setSupplierId(supplierId);
+        inventoryRequest.setMessage(message);
+        inventoryRequest.setRequestId("RHSK123123");
+        inventoryRequestsFacade.create(inventoryRequest);
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminInventoryRequestSuccess.jsp");
         dispatcher.forward(request, response);
     }
 

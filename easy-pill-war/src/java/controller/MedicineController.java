@@ -116,7 +116,7 @@ public class MedicineController extends HttpServlet {
 
     private void deleteMedicine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String medicineId = request.getParameter("medicineId");
-        Medicine medicine = medicineFacade.getMedicineById(medicineId);
+        Medicine medicine = medicineFacade.find(medicineId);
         Path imagePath = FileSystems.getDefault().getPath("D:\\Documents\\NetBeansProjects\\easy-pill\\easy-pill-war\\web\\" + medicine.getImagePath());
         Files.deleteIfExists(imagePath);
         medicineFacade.removeMedicine(medicineId);
@@ -261,7 +261,7 @@ public class MedicineController extends HttpServlet {
 
     private void redirectUpdateMedicineImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String medicineId = request.getParameter("medicineId");
-        Medicine medicine = medicineFacade.getMedicineById(medicineId);
+        Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("name", medicine.getName());
         request.setAttribute("medicineId", medicineId);
         request.setAttribute("imagePath", medicine.getImagePath());
@@ -271,7 +271,7 @@ public class MedicineController extends HttpServlet {
 
     private void redirectUpdateMedicineName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String medicineId = request.getParameter("medicineId");
-        Medicine medicine = medicineFacade.getMedicineById(medicineId);
+        Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("name", medicine.getName());
         request.setAttribute("medicineId", medicineId);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicineNamePage.jsp");
@@ -280,7 +280,7 @@ public class MedicineController extends HttpServlet {
 
     private void redirectUpdateMedicineDescription(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String medicineId = request.getParameter("medicineId");
-        Medicine medicine = medicineFacade.getMedicineById(medicineId);
+        Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("description", medicine.getDescription());
         request.setAttribute("medicineId", medicineId);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicineDescriptionPage.jsp");
@@ -289,7 +289,7 @@ public class MedicineController extends HttpServlet {
 
     private void redirectUpdateMedicinePrice(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String medicineId = request.getParameter("medicineId");
-        Medicine medicine = medicineFacade.getMedicineById(medicineId);
+        Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("price", medicine.getPrice());
         request.setAttribute("medicineId", medicineId);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicinePricePage.jsp");
@@ -298,7 +298,7 @@ public class MedicineController extends HttpServlet {
 
     private void redirectUpdateMedicineQuantity(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String medicineId = request.getParameter("medicineId");
-        Medicine medicine = medicineFacade.getMedicineById(medicineId);
+        Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("quantity", medicine.getQuantity());
         request.setAttribute("medicineId", medicineId);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicineQuantityPage.jsp");
@@ -307,7 +307,7 @@ public class MedicineController extends HttpServlet {
 
     private void redirectDeleteMedicine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String medicineId = request.getParameter("medicineId");
-        Medicine medicine = medicineFacade.getMedicineById(medicineId);
+        Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("medName", medicine.getName());
         request.setAttribute("medicineId", medicineId);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminRemoveMedicinePage.jsp");

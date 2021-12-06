@@ -11,6 +11,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import utilities.Logged;
+
 
 /**
  *
@@ -31,6 +33,7 @@ public class MedicineFacade extends AbstractFacade<Medicine> {
         super(Medicine.class);
     }
 
+    @Logged
     public List<Medicine> getAllMedicineInStock() {
         Query q = em.createNamedQuery("Medicine.findAllInStock");
         q.setParameter(1, "0");
@@ -38,6 +41,7 @@ public class MedicineFacade extends AbstractFacade<Medicine> {
         return a;
     }
 
+    @Logged
     public List<Medicine> getAllMedicineOutOfStock() {
         Query q = em.createNamedQuery("Medicine.findAllOutOfStock");
         q.setParameter(1, "0");
@@ -45,74 +49,38 @@ public class MedicineFacade extends AbstractFacade<Medicine> {
         return a;
     }
 
-    public Medicine getMedicineById(String medicineId) {
-        Query q = em.createNamedQuery("Medicine.findByMedicineId");
-        q.setParameter(1, medicineId);
-        List<Medicine> a = q.getResultList();
-        if (a.isEmpty()) {
-            return null;
-        } else {
-            return a.get(0);
-        }
+    @Logged
+    public void updateName(String medicineId, String newName) {
+        Medicine m = em.find(Medicine.class, medicineId);
+        m.setName(newName);
+        em.merge(m);
+    }
+    
+    @Logged
+    public void updateDescription(String medicineId, String description) {
+        Medicine m = em.find(Medicine.class, medicineId);
+        m.setDescription(description);
+        em.merge(m);
     }
 
-    public boolean updateName(String medicineId, String newName) {
-        Query q = em.createNamedQuery("Medicine.updateName");
-        q.setParameter(1, newName);
-        q.setParameter(2, medicineId);
-        try {
-            q.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    @Logged    
+    public void updatePrice(String medicineId, String price) {
+        Medicine m = em.find(Medicine.class, medicineId);
+        m.setPrice(price);
+        em.merge(m);
     }
-
-    public boolean updateDescription(String medicineId, String newDesc) {
-        Query q = em.createNamedQuery("Medicine.updateDescription");
-        q.setParameter(1, newDesc);
-        q.setParameter(2, medicineId);
-        try {
-            q.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    
+    @Logged
+    public void updateQuantity(String medicineId, String quantity) {
+        Medicine m = em.find(Medicine.class, medicineId);
+        m.setQuantity(quantity);
+        em.merge(m);
     }
-
-    public boolean updatePrice(String medicineId, String newDesc) {
-         Query q = em.createNamedQuery("Medicine.updatePrice");
-        q.setParameter(1, newDesc);
-        q.setParameter(2, medicineId);
-        try {
-            q.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean updateQuantity(String medicineId, String newDesc) {
-         Query q = em.createNamedQuery("Medicine.updateQuantity");
-        q.setParameter(1, newDesc);
-        q.setParameter(2, medicineId);
-        try {
-            q.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean removeMedicine(String medicineId) {
-        Query q = em.createNamedQuery("Medicine.removeMedicine");
-        q.setParameter(1, medicineId);
-        try {
-            q.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    
+    @Logged
+    public void removeMedicine(String medicineId) {
+        Medicine m = em.find(Medicine.class, medicineId);
+        em.remove(em.merge(m));
     }
 
 }
