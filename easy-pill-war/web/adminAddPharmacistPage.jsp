@@ -26,6 +26,7 @@
                     <div class="signup-content">
                         <form action="UserController" method="POST" class="signup-form" >
                             <input hidden="" name="command" value="ADDPHARMACIST">
+                            <input hidden="" name="tab" value="pharmacist">
                             <h2 class="form-title">Add Pharmacist</h2>
                             <div class="form-group">
                                 <p style="text-align: center; color: red;">${ErrorMessage}</p>
@@ -59,7 +60,7 @@
                                     <input type="submit" name="submit" id="submit" class="form-submit" value="Add Pharmacist"  onclick="return validate()"/>
                                 </div>
                                 <p class="loginhere">
-                                    <a class="login-here-link-text" href="UserController">Go Back</a>
+                                    <a class="login-here-link-text" onclick="history.back()">Go Back</a>
                                 </p>
                             </div>
                         </form>

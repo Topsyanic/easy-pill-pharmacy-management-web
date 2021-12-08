@@ -24,14 +24,31 @@
             <c:url var="dashboardLink" value="AdminController">
                 <c:param name="command" value="HOME"/>
             </c:url>
-            <c:url var="userLink" value="UserController">
+            <c:url var="customerLink" value="UserController">
                 <c:param name="command" value="USER"/>
+                <c:param name="tab" value="customer"/>
             </c:url>
-            <c:url var="medicineLink" value="MedicineController">
+            <c:url var="doctorLink" value="UserController">
+                <c:param name="command" value="USER"/>
+                <c:param name="tab" value="doctor"/>
+            </c:url>
+            <c:url var="pharmacistLink" value="UserController">
+                <c:param name="command" value="USER"/>
+                <c:param name="tab" value="pharmacist"/>
+            </c:url>
+            <c:url var="inStockLink" value="MedicineController">
                 <c:param name="command" value="MEDICINE"/>
+                <c:param name="tab" value="instock"/>
+            </c:url>
+            <c:url var="outStockLink" value="MedicineController">
+                <c:param name="command" value="MEDICINE"/>
+                <c:param name="tab" value="outstock"/>
             </c:url>
             <c:url var="supplierLink" value="SupplierController">
                 <c:param name="command" value="SUPPLIER"/>
+            </c:url>
+            <c:url var="precriptionLink" value="PrescriptionController">
+                <c:param name="command" value="PRESCRIPTION"/>
             </c:url>
             <c:url var="orderLink" value="OrderController">
                 <c:param name="command" value="ORDER"/>
@@ -45,11 +62,15 @@
             </c:url>
             <div class="sidebar-menu">
                 <ul>
-                    <li><a href="${dashboardLink}" ><span class="las la-home"></span><span>Dashboard</span></a></li>
-                    <li><a href="${userLink}" ><span class="las la-users"></span><span>Users</span></a></li>
-                    <li><a href="${medicineLink}"><span class="las la-first-aid"></span><span>Medicine</span></a></li>
-                    <li><a href="${supplierLink}" class="active"><span class="las la-truck"></span><span>Suppliers</span></a></li>
+                    <li><a href="${dashboardLink}"><span class="las la-home"></span><span>Dashboard</span></a></li>
+                    <li><a href="${customerLink}"><span class="las la-user-alt"></span><span>Customers</span></a></li>
+                    <li><a href="${doctorLink}"><span class="las la-stethoscope"></span><span>Doctors</span></a></li>
+                    <li><a href="${pharmacistLink}" ><span class="las la-user-nurse"></span><span>Pharmacists</span></a></li>
+                    <li><a href="${inStockLink}"><span class="las la-first-aid"></span><span>Medicine In Stock</span></a></li>
+                    <li><a href="${outStockLink}"><span class="las la-band-aid"></span><span>Medicine Out of Stock</span></a></li>
+                    <li><a href="${supplierLink}"  class="active"><span class="las la-truck"></span><span>Suppliers</span></a></li>
                     <li><a href="${orderLink}"><span class="las la-shopping-cart"></span><span>Orders</span></a></li>
+                    <li><a href="${precriptionLink}"><span class="las la-notes-medical"></span><span>Prescriptions</span></a></li>
                     <li><a href="${logoutLink}"><span class="las la-sign-out-alt"></span><span>Logout</span></a></li>
                 </ul>
             </div>
@@ -73,7 +94,7 @@
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">
                     <div>
                         <h4>${username}</h4>
-                        <small>Super admin</small>
+                        <small>${role}</small>
                     </div>
                 </div>
             </header>

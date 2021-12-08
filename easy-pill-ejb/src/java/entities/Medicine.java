@@ -49,7 +49,7 @@ public class Medicine implements Serializable {
     @Size(max = 256)
     @Column(name = "name")
     private String name;
-    @Size(max = 256)
+    @Size(max = 5000)
     @Column(name = "description")
     private String description;
     @Size(max = 256)
@@ -67,6 +67,9 @@ public class Medicine implements Serializable {
     @Size(max = 256)
     @Column(name = "quantity")
     private String quantity;
+    @Size(max = 256)
+    @Column(name = "require_pres")
+    private String requirePres;
 
     public Medicine() {
     }
@@ -138,7 +141,6 @@ public class Medicine implements Serializable {
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -162,6 +164,14 @@ public class Medicine implements Serializable {
     @Override
     public String toString() {
         return "entities.Medicine[ medicineId=" + medicineId + " ]";
+    }
+
+    public String getRequirePres() {
+        return requirePres;
+    }
+
+    public void setRequirePres(String requirePres) {
+        this.requirePres = requirePres;
     }
 
 }

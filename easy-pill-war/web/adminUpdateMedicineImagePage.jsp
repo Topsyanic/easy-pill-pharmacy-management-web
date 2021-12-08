@@ -35,6 +35,7 @@
                     <div class="signup-content">
                         <form action="MedicineController" method="POST"  class="signup-form" enctype="multipart/form-data">
                             <input name='command' value='UPDATEMEDICINE' hidden>
+                            <input name='tab' value='${tab}' hidden>
                             <input name='option' value='image' hidden>
                             <input name='name' value='${name}' hidden>
                             <input name='medicineId' value='${medicineId}' hidden>

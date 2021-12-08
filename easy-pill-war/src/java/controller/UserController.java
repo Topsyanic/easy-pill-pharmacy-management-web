@@ -14,11 +14,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 import model.UserFacade;
 import utilities.UserIdGenerator;
 import utilities.PasswordHasher;
+import utilities.SessionDetails;
 import utilities.UserEmailValidator;
 
 /**
@@ -77,25 +77,37 @@ public class UserController extends HttpServlet {
     }
 
     private void redirectAdminUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
         List<User> customerList = userFacade.getAllCustomers();
         List<User> doctorList = userFacade.getAllDoctors();
         List<User> pharmacistList = userFacade.getAllPharmacists();
-        request.setAttribute("username", (String) session.getAttribute("UserFirstName") + " " + (String) session.getAttribute("UserLastName"));
+        request.setAttribute("username", SessionDetails.getUserFirstName() + " " + SessionDetails.getUserLastName());
+        request.setAttribute("role", SessionDetails.getUserRole());
         request.setAttribute("customerCount", customerList.size());
         request.setAttribute("doctorCount", doctorList.size());
         request.setAttribute("pharmacistCount", pharmacistList.size());
         request.setAttribute("CUSTOMERLIST", customerList);
         request.setAttribute("DOCTORLIST", doctorList);
         request.setAttribute("PHARMACISTLIST", pharmacistList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUserPage.jsp");
-        dispatcher.forward(request, response);
+        String tab = request.getParameter("tab");
+        switch (tab) {
+            case "customer":
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/adminCustomersPage.jsp");
+                dispatcher.forward(request, response);
+            case "doctor":
+                RequestDispatcher dispatcher2 = request.getRequestDispatcher("/adminDoctorsPage.jsp");
+                dispatcher2.forward(request, response);
+            case "pharmacist":
+                RequestDispatcher dispatcher3 = request.getRequestDispatcher("/adminPharmacistsPage.jsp");
+                dispatcher3.forward(request, response);
+
+        }
 
     }
 
     private void confirmDeleteUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("userId");
         userFacade.removeUser(userId);
+        request.setAttribute("tab", request.getParameter("tab"));
         request.getRequestDispatcher("deleteUserSuccess.jsp").include(request, response);
 
     }
@@ -124,6 +136,7 @@ public class UserController extends HttpServlet {
             user.setUserRole("customer");
             user.setUserId(userIdGenerator.generateNumber());
             userFacade.create(user);
+            request.setAttribute("tab", request.getParameter("tab"));
             RequestDispatcher dispatcher = request.getRequestDispatcher("addUserSuccess.jsp");
             dispatcher.forward(request, response);
 
@@ -153,6 +166,7 @@ public class UserController extends HttpServlet {
             user.setUserRole("pharmacist");
             user.setUserId(userIdGenerator.generateNumber());
             userFacade.create(user);
+            request.setAttribute("tab", request.getParameter("tab"));
             RequestDispatcher dispatcher = request.getRequestDispatcher("addUserSuccess.jsp");
             dispatcher.forward(request, response);
         }
@@ -183,6 +197,7 @@ public class UserController extends HttpServlet {
             user.setUserRole("doctor");
             user.setUserId(userIdGenerator.generateNumber());
             userFacade.create(user);
+            request.setAttribute("tab", request.getParameter("tab"));
             RequestDispatcher dispatcher = request.getRequestDispatcher("addUserSuccess.jsp");
             dispatcher.forward(request, response);
         }

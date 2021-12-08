@@ -22,11 +22,11 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import model.MedicineFacade;
 import model.SupplierFacade;
 import utilities.MedicineIdGenerator;
+import utilities.SessionDetails;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
         maxFileSize = 1024 * 1024 * 10,
@@ -100,8 +100,8 @@ public class MedicineController extends HttpServlet {
     }
 
     private void redirectAdminMedicine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        request.setAttribute("username", (String) session.getAttribute("UserFirstName") + " " + (String) session.getAttribute("UserLastName"));
+        request.setAttribute("username", SessionDetails.getUserFirstName() + " " + SessionDetails.getUserLastName());
+        request.setAttribute("role", SessionDetails.getUserRole());
         List<Medicine> instockList = medicineFacade.getAllMedicineInStock();
         List<Medicine> outstockList = medicineFacade.getAllMedicineOutOfStock();
         request.setAttribute("INSTOCKLIST", instockList);
@@ -109,8 +109,16 @@ public class MedicineController extends HttpServlet {
         request.setAttribute("inStockCount", instockList.size());
         request.setAttribute("outOfStockCount", outstockList.size());
         request.setAttribute("medicineCount", (instockList.size() + outstockList.size()));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/adminMedicinePage.jsp");
-        dispatcher.forward(request, response);
+        String tab = request.getParameter("tab");
+        switch (tab) {
+            case "instock":
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/adminMedicineInStockPage.jsp");
+                dispatcher.forward(request, response);
+            case "outstock":
+                RequestDispatcher dispatcher2 = request.getRequestDispatcher("/adminMedicineOutStockPage.jsp");
+                dispatcher2.forward(request, response);
+
+        }
 
     }
 
@@ -120,6 +128,7 @@ public class MedicineController extends HttpServlet {
         Path imagePath = FileSystems.getDefault().getPath("D:\\Documents\\NetBeansProjects\\easy-pill\\easy-pill-war\\web\\" + medicine.getImagePath());
         Files.deleteIfExists(imagePath);
         medicineFacade.removeMedicine(medicineId);
+        request.setAttribute("tab", request.getParameter("tab"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/deleteMedicineSuccess.jsp");
         dispatcher.forward(request, response);
     }
@@ -133,18 +142,20 @@ public class MedicineController extends HttpServlet {
         String price = request.getParameter("price");
         String weight = request.getParameter("weight");
         String quantity = request.getParameter("quantity");
+        String requirePres = request.getParameter("requirePres");
         Part imagePart = request.getPart("image");
         //Validating  Photo and File Uploads
         if (!imagePart.getContentType().equalsIgnoreCase("image/jpeg")) {
             if (!imagePart.getContentType().equalsIgnoreCase("image/png")) {
                 request.setAttribute("errorMessage", "Please make sure an image is uploaded here!");
                 request.setAttribute("name", request.getParameter("name"));
-                request.setAttribute("supplier", request.getParameter("isbn"));
+                request.setAttribute("supplier", request.getParameter("supplier"));
                 request.setAttribute("metric", request.getParameter("metric"));
                 request.setAttribute("description", request.getParameter("description"));
                 request.setAttribute("price", request.getParameter("price"));
                 request.setAttribute("quantity", request.getParameter("quantity"));
                 request.setAttribute("weight", request.getParameter("weight"));
+                request.setAttribute("requirePres", request.getParameter("requirePres"));
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/adminAddMedicinePage.jsp");
                 dispatcher.forward(request, response);
             }
@@ -166,7 +177,10 @@ public class MedicineController extends HttpServlet {
             medicine.setPrice(price);
             medicine.setWeight(weight + " " + metric);
             medicine.setQuantity(quantity);
+            medicine.setRequirePres(requirePres);
             medicineFacade.create(medicine);
+            System.out.println("THE TAB IS +"+request.getParameter("tab"));
+            request.setAttribute("tab", request.getParameter("tab"));
             RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicineSuccess.jsp");
             dispatcher.forward(request, response);
 
@@ -185,6 +199,7 @@ public class MedicineController extends HttpServlet {
                         request.setAttribute("uploadError", "Uploaded file was not an image. Please re-upload an image.");
                         request.setAttribute("name", request.getParameter("name"));
                         request.setAttribute("medicineId", request.getParameter("medicineId"));
+                        request.setAttribute("tab", request.getParameter("tab"));
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicineImagePage.jsp");
                         dispatcher.forward(request, response);
                     }
@@ -194,6 +209,7 @@ public class MedicineController extends HttpServlet {
                 } else if (imagePart.getContentType().equalsIgnoreCase("image/png")) {
                     imagePart.write(medicineId + ".png");
                 }
+                request.setAttribute("tab", request.getParameter("tab"));
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicineSuccess.jsp");
                 dispatcher.forward(request, response);
                 break;
@@ -202,6 +218,7 @@ public class MedicineController extends HttpServlet {
                 medicineId = request.getParameter("medicineId");
                 String newName = request.getParameter("newname");
                 medicineFacade.updateName(medicineId, newName);
+                request.setAttribute("tab", request.getParameter("tab"));
                 RequestDispatcher dispatcher2 = request.getRequestDispatcher("/adminUpdateMedicineSuccess.jsp");
                 dispatcher2.forward(request, response);
                 break;
@@ -209,6 +226,7 @@ public class MedicineController extends HttpServlet {
                 medicineId = request.getParameter("medicineId");
                 String newDesc = request.getParameter("newDesc");
                 medicineFacade.updateDescription(medicineId, newDesc);
+                request.setAttribute("tab", request.getParameter("tab"));
                 RequestDispatcher dispatcher3 = request.getRequestDispatcher("/adminUpdateMedicineSuccess.jsp");
                 dispatcher3.forward(request, response);
                 break;
@@ -216,6 +234,7 @@ public class MedicineController extends HttpServlet {
                 medicineId = request.getParameter("medicineId");
                 String newPrice = request.getParameter("newPrice");
                 medicineFacade.updatePrice(medicineId, newPrice);
+                request.setAttribute("tab", request.getParameter("tab"));
                 RequestDispatcher dispatcher4 = request.getRequestDispatcher("/adminUpdateMedicineSuccess.jsp");
                 dispatcher4.forward(request, response);
                 break;
@@ -223,6 +242,7 @@ public class MedicineController extends HttpServlet {
                 medicineId = request.getParameter("medicineId");
                 String newQuantity = request.getParameter("newQuantity");
                 medicineFacade.updateQuantity(medicineId, newQuantity);
+                request.setAttribute("tab", request.getParameter("tab"));
                 RequestDispatcher dispatcher5 = request.getRequestDispatcher("/adminUpdateMedicineSuccess.jsp");
                 dispatcher5.forward(request, response);
                 break;
@@ -265,6 +285,7 @@ public class MedicineController extends HttpServlet {
         request.setAttribute("name", medicine.getName());
         request.setAttribute("medicineId", medicineId);
         request.setAttribute("imagePath", medicine.getImagePath());
+        request.setAttribute("tab", request.getParameter("tab"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicineImagePage.jsp");
         dispatcher.forward(request, response);
     }
@@ -274,6 +295,7 @@ public class MedicineController extends HttpServlet {
         Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("name", medicine.getName());
         request.setAttribute("medicineId", medicineId);
+        request.setAttribute("tab", request.getParameter("tab"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicineNamePage.jsp");
         dispatcher.forward(request, response);
     }
@@ -283,6 +305,7 @@ public class MedicineController extends HttpServlet {
         Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("description", medicine.getDescription());
         request.setAttribute("medicineId", medicineId);
+        request.setAttribute("tab", request.getParameter("tab"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicineDescriptionPage.jsp");
         dispatcher.forward(request, response);
     }
@@ -292,6 +315,7 @@ public class MedicineController extends HttpServlet {
         Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("price", medicine.getPrice());
         request.setAttribute("medicineId", medicineId);
+        request.setAttribute("tab", request.getParameter("tab"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicinePricePage.jsp");
         dispatcher.forward(request, response);
     }
@@ -301,6 +325,7 @@ public class MedicineController extends HttpServlet {
         Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("quantity", medicine.getQuantity());
         request.setAttribute("medicineId", medicineId);
+        request.setAttribute("tab", request.getParameter("tab"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminUpdateMedicineQuantityPage.jsp");
         dispatcher.forward(request, response);
     }
@@ -310,6 +335,7 @@ public class MedicineController extends HttpServlet {
         Medicine medicine = medicineFacade.find(medicineId);
         request.setAttribute("medName", medicine.getName());
         request.setAttribute("medicineId", medicineId);
+        request.setAttribute("tab", request.getParameter("tab"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminRemoveMedicinePage.jsp");
         dispatcher.forward(request, response);
     }
@@ -317,6 +343,7 @@ public class MedicineController extends HttpServlet {
     private void redirectAddMedicine(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Supplier> supplierList = supplierFacade.findAll();
         request.setAttribute("supplierList", supplierList);
+        request.setAttribute("tab", request.getParameter("tab"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminAddMedicinePage.jsp");
         dispatcher.forward(request, response);
     }

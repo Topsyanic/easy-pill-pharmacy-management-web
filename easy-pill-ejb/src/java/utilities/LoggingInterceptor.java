@@ -15,11 +15,12 @@ import javax.interceptor.InvocationContext;
  *
  * @author Topsy
  */
+
 @Logged
 @Interceptor
+
 public class LoggingInterceptor {
 
-    private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(LoggingInterceptor.class.getName());
 
     public LoggingInterceptor() {

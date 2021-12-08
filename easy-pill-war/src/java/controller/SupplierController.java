@@ -23,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import model.InventoryRequestsFacade;
 import model.SupplierFacade;
 import utilities.Mail;
+import utilities.SessionDetails;
 import utilities.SupplierEmailValidator;
 import utilities.SupplierIdGenerator;
 
@@ -95,14 +96,14 @@ public class SupplierController extends HttpServlet {
     }
 
     private void redirectAdminSupplier(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        request.setAttribute("username", (String) session.getAttribute("UserFirstName") + " " + (String) session.getAttribute("UserLastName"));
+        request.setAttribute("username", SessionDetails.getUserFirstName() + " " + SessionDetails.getUserLastName());
+        request.setAttribute("role", SessionDetails.getUserRole());
         List<Supplier> supplierList = supplierFacade.findAll();
         request.setAttribute("SUPPLIERLIST", supplierList);
-         List<InventoryRequests> requestList = inventoryRequestsFacade.findAll();
+        List<InventoryRequests> requestList = inventoryRequestsFacade.findAll();
         request.setAttribute("REQUESTLIST", requestList);
         request.setAttribute("supplierCount", supplierList.size());
-        request.setAttribute("requestCount", "12");
+        request.setAttribute("requestCount", requestList.size());
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminSupplierPage.jsp");
         dispatcher.forward(request, response);
@@ -228,7 +229,7 @@ public class SupplierController extends HttpServlet {
         inventoryRequest.setMessage(message);
         inventoryRequest.setRequestId("RHSK123123");
         inventoryRequestsFacade.create(inventoryRequest);
-        
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminInventoryRequestSuccess.jsp");
         dispatcher.forward(request, response);
     }

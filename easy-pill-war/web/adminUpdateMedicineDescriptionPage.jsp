@@ -34,19 +34,14 @@
                     <div class="signup-content">
                         <form action="MedicineController" method="POST"  class="signup-form">
                             <input name='command' value='UPDATEMEDICINE' hidden>
+                            <input name='tab' value='${tab}' hidden>
                             <input name='option' value='description' hidden>
                             <input name='name' value='${name}' hidden>
                             <input name='medicineId' value='${medicineId}' hidden>
                             <h2 class="form-title">Update Medicine Description</h2>
-                            <p style='text-align: center; margin-bottom: 15px;'>Select Supplier</p>
-                            <label class="metric-text"  for="supplier"><p style="text-align:center">Select Supplier</p> <select  name="supplier" class="dropdown">
-                                    <c:forEach var="sup" items="${supplierList}">
-                                        <option  value="${sup.supplierId}">${sup.name}(${sup.supplierId})</option>
-                                    </c:forEach>
-                                </select></label>
                             <p style='text-align: center; margin-bottom: 15px;'>You can edit the description below.</p>
                             <div class="form-group">
-                                <textarea type="text" class="desc-message1" name="newDesc" required id="name" placeholder="New Description">${description}</textarea> 
+                                <textarea type="text" class="desc-message" name="newDesc" required id="name" placeholder="New Description">${description}</textarea> 
                                 <input type="submit" name="submit" id="submit" class="form-submit" value="Yes"/>
                                 <input type="button" name="submit" id="submit" class="form-submit" value="No" onclick="history.back()"/>
                             </div>           

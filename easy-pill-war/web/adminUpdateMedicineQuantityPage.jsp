@@ -31,6 +31,7 @@
                     <div class="signup-content">
                         <form action="MedicineController" method="POST"  class="signup-form">
                             <input name='command' value='UPDATEMEDICINE' hidden>
+                            <input name='tab' value='${tab}' hidden>
                             <input name='option' value='quantity' hidden>
                             <input name='name' value='${name}' hidden>
                             <input name='medicineId' value='${medicineId}' hidden>
@@ -43,7 +44,7 @@
                                            maxlength = "3"/>
                                 </div>
                                 <input type="submit" name="submit" id="submit" class="form-submit" value="Update "/>
-                                <input type="button" name="submit" id="submit" class="form-submit" value="cancel " onclick="history.back()"/>
+                                <input type="button" name="submit" id="submit" class="form-submit" value="cancel " />
                             </div>           
                         </form>
                     </div>               

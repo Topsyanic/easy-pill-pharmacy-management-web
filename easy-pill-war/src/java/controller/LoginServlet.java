@@ -16,17 +16,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.UserFacade;
 import utilities.PasswordHasher;
+import utilities.SessionDetails;
 
 /**
  *
  * @author Topsy
- * 
+ *
  */
 public class LoginServlet extends HttpServlet {
 
     @EJB
     private PasswordHasher passwordHasher;
-   
+
     @EJB
     private UserFacade userFacade;
 
@@ -43,16 +44,16 @@ public class LoginServlet extends HttpServlet {
             dispatcher.forward(request, response);
         } else if (!passwordHasher.getHash(password).equalsIgnoreCase(user.getPassword())) {
             request.setAttribute("ErrorMessage", "Password is incorrect. Please Try Again.");
-            request.setAttribute("email",email);
+            request.setAttribute("email", email);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/loginPage.jsp");
             dispatcher.forward(request, response);
         } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("userId", user.getUserId());
-            session.setAttribute("UserEmail", email);
-            session.setAttribute("UserFirstName", user.getFirstName());
-            session.setAttribute("UserLastName", user.getLastName());
-            session.setAttribute("userRole", user.getUserRole());
+            SessionDetails.setUserId(user.getUserId());
+            SessionDetails.setUserEmail(email);
+            SessionDetails.setUserFirstName(user.getFirstName());
+            SessionDetails.setUserLastName(user.getLastName());
+            SessionDetails.setUserRole(user.getUserRole());
+
             switch (user.getUserRole()) {
                 case "admin": {
                     response.sendRedirect("AdminController");
@@ -74,7 +75,5 @@ public class LoginServlet extends HttpServlet {
         }
 
     }
-    
-    
 
 }

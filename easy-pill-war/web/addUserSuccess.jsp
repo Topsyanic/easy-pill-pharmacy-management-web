@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,6 +19,10 @@
         <link rel="stylesheet" href="CSS/footer.css">
     </head>
     <body>
+         <c:url var="redirectLink" value="UserController">
+        <c:param name="command" value="USER"/>
+        <c:param name="tab" value="${tab}"/>
+    </c:url>
         <br>
         <br>
         <br>
@@ -33,7 +38,7 @@
                         <br>
                         <br>
                         <div class="form-group">
-                            <input type="submit" name="submit" id="submit" class="form-submit" value="Ok " onclick="location.href = 'UserController'"/>
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Ok " onclick="location.href = '${redirectLink}'"/>
                         </div>                   
                     </div>
                 </div>

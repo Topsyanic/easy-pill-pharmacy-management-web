@@ -19,37 +19,44 @@
         <link rel="stylesheet" href="CSS/footer.css">
     </head>
     <c:url var="medicineLink" value="MedicineController">
+        <c:param name="tab" value='<%=request.getParameter("tab")%>'/>
         <c:param name="command" value="MEDICINE"/>
     </c:url>
     <c:url var="imageLink" value="MedicineController">
         <c:param name="command" value="MEDICINEOPTION"/>
         <c:param name="option" value="image"/>
+        <c:param name="tab" value='<%=request.getParameter("tab")%>'/>
         <c:param name="medicineId" value='<%=request.getParameter("medicineId")%>'/>
     </c:url>
 
     <c:url var="nameLink" value="MedicineController">
         <c:param name="command" value="MEDICINEOPTION"/>
         <c:param name="option" value="name"/>
+        <c:param name="tab" value='<%=request.getParameter("tab")%>'/>
         <c:param name="medicineId" value='<%=request.getParameter("medicineId")%>'/>
     </c:url>
     <c:url var="descriptionLink" value="MedicineController">
         <c:param name="command" value="MEDICINEOPTION"/>
         <c:param name="option" value="description"/>
+        <c:param name="tab" value='<%=request.getParameter("tab")%>'/>
         <c:param name="medicineId" value='<%=request.getParameter("medicineId")%>'/>
     </c:url>
     <c:url var="priceLink" value="MedicineController">
         <c:param name="command" value="MEDICINEOPTION"/>
         <c:param name="option" value="price"/>
+        <c:param name="tab" value='<%=request.getParameter("tab")%>'/>
         <c:param name="medicineId" value='<%=request.getParameter("medicineId")%>'/>
     </c:url>
     <c:url var="quantityLink" value="MedicineController">
         <c:param name="command" value="MEDICINEOPTION"/>
         <c:param name="option" value="quantity"/>
+        <c:param name="tab" value='<%=request.getParameter("tab")%>'/>
         <c:param name="medicineId" value='<%=request.getParameter("medicineId")%>'/>
     </c:url>
     <c:url var="deleteLink" value="MedicineController">
         <c:param name="command" value="MEDICINEOPTION"/>
         <c:param name="option" value="delete"/>
+        <c:param name="tab" value='<%=request.getParameter("tab")%>'/>
         <c:param name="medicineId" value='<%=request.getParameter("medicineId")%>'/>
     </c:url>
     <body>
@@ -71,7 +78,7 @@
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Change Price" onclick="location.href = '${priceLink}'"/>
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Change Quantity" onclick="location.href = '${quantityLink}'"/>
                             <input type="submit" name="submit" id="submit" class="form-submit" value="Remove Medicine" onclick="location.href = '${deleteLink}'"/>
-                            <input type="submit" id="submit" class="form-submit" value="Go Back" onclick="location.href = '${medicineLink}'"/>
+                            <input type="submit" id="submit" class="form-submit" value="Go Back" onclick="history.back()"/>
                         </div>                   
                     </div>
                 </div>

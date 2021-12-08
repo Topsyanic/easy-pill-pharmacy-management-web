@@ -18,9 +18,6 @@
         <link rel="stylesheet" href="CSS/footer.css">
         <link rel="stylesheet" href="CSS/updateMedicineImage.css">
     </head>
-    <c:url var="supplierLink" value="SupplierController">
-        <c:param name="command" value="SUPPLIER"/>
-    </c:url>
     <body>
         <h1 class="title-h1" >EASY<span class='alt-color'>PILL</span></h1>
 
@@ -30,6 +27,7 @@
                     <div class="signup-content">
                         <form action="MedicineController" method="POST" class="signup-form" enctype="multipart/form-data" >
                             <input name='command' value='CONFIRMADDMEDICINE' hidden>
+                            <input name='tab' value='${tab}' hidden>
                             <div class="form-group">
                                 <div class="update-pic-div">
                                     <img src="IMG/thumbnail.jpg" id="previewPhoto">
@@ -40,12 +38,20 @@
                                 <p style="text-align: center;">Please upload the image of the medicine.</p>
                             </div>
                             <div class="form-group"> 
-                                <label class="metric-text"  for="supplier"><p style="text-align:center">Select Supplier</p> <select  name="supplier" class="dropdown">
+                                <label class="metric-text"  for="supplier"><p style="text-align:center">Select Supplier</p> <select  name="supplier" class="form-input">
                                         <c:forEach var="sup" items="${supplierList}">
-                                            <option  value="${sup.supplierId}">${sup.name}(${sup.supplierId})</option>
+                                            <option   value="${sup.supplierId}">${sup.name}(${sup.supplierId})</option>
                                         </c:forEach>
                                     </select></label>
-
+                            </div>
+                            <div class="form-group">
+                                <div class="name"><p style="text-align:center">Requires Prescription?</p></div>
+                                <div class="value" > 
+                                    <select name="requirePres" class="form-input">
+                                        <option values="Yes">Yes</option>
+                                        <option values="No">No</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
@@ -81,7 +87,7 @@
 
                                 <div class="form-group">
                                     <input type="submit" name="submit" id="submit" class="form-submit" value="Add "/>
-                                    <input type="button" name="submit" id="submit" class="form-submit" value="cancel " onclick="location.href = '${supplierLink}'"/>
+                                    <input type="button" name="submit" id="submit" class="form-submit" value="cancel " onclick="history.back()"/>
                                 </div>
                             </div>
                         </form>

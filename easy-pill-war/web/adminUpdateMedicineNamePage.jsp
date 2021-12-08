@@ -31,6 +31,7 @@
                     <div class="signup-content">
                         <form action="MedicineController" method="POST"  class="signup-form">
                             <input name='command' value='UPDATEMEDICINE' hidden>
+                            <input name='tab' value='${tab}' hidden>
                             <input name='option' value='name' hidden>
                             <input name='name' value='${name}' hidden>
                             <input name='medicineId' value='${medicineId}' hidden>

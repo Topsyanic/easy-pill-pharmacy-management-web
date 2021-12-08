@@ -31,6 +31,7 @@
                     <div class="signup-content">
                         <form action="UserController" method="POST"  class="signup-form">
                             <input name='command' value='CONFIRMDELETE' hidden>
+                            <input hidden="" name="tab" value='<%=request.getParameter("tab")%>'>
                             <input name='userId' value='<%=request.getParameter("userId")%>' hidden>
                             <h2 class="form-title">Remove User</h2>
                             <p style='text-align: center; margin-bottom: 15px;'>Are you sure you want to remove the user below?</p>

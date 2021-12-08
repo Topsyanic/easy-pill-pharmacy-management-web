@@ -21,6 +21,7 @@
     <body>
         <c:url var="medicineLink" value="MedicineController">
             <c:param name="command" value="MEDICINE"/>
+            <c:param name="tab" value="${tab}"/>
         </c:url>
         <br>
         <br>
@@ -53,7 +54,7 @@
             <br>
             <br>
         </div>
-                        <!--         FOOTER      -->
+        <!--         FOOTER      -->
         <footer class="footer">
             <div class="footer-container">
                 <div class="footer-row">

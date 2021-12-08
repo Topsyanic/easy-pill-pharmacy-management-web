@@ -32,6 +32,7 @@
                     <div class="signup-content">
                         <form action="MedicineController" method="POST"  class="signup-form">
                             <input name='command' value='DELETEMEDICINE' hidden>
+                            <input name='tab' value='${tab}' hidden>
                             <input name='medicineId' value='<%=request.getParameter("medicineId")%>' hidden>
                             <h2 class="form-title">Remove Medicine</h2>
                             <p style='text-align: center; margin-bottom: 15px;'>Are you sure you want to remove the medicine below?</p>

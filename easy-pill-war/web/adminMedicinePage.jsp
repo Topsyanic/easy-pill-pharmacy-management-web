@@ -72,7 +72,7 @@
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">
                     <div>
                         <h4>${username}</h4>
-                        <small>Super admin</small>
+                        <small>${role}</small>
                     </div>
                 </div>
             </header>
@@ -125,6 +125,7 @@
                                                 <td>Price</td>
                                                 <td>Quantity</td>
                                                 <td>Supplier ID</td>
+                                                <td>Require Prescription</td>
                                                 <td>Option</td>
                                             </tr>
                                         </thead>
@@ -140,6 +141,7 @@
                                                     <td>${tempList.price}</td>
                                                     <td>${tempList.quantity}</td>
                                                     <td>${tempList.supplierId}</td>
+                                                    <td>${tempList.requirePres}</td>
                                                     <td><a href='${editLink}' class="customButton"> <span class="las la-edit"></span></a></td>
                                                 </tr> 
                                             </c:forEach>
@@ -167,6 +169,7 @@
                                                 <td>Price</td>
                                                 <td>Quantity</td>
                                                 <td>Supplier ID</td>
+                                                <td>Require Prescription</td>
                                                 <td>Option</td>
                                         </thead>
                                         <tbody id="myTable1">
@@ -181,6 +184,7 @@
                                                     <td>${tempList2.price}</td>
                                                     <td>${tempList2.quantity}</td>
                                                     <td>${tempList2.supplierId}</td>
+                                                    <td>${tempList2.requirePres}</td>
                                                     <td><a href='${editLink}' class="customButton"> <span class="las la-edit"></span></a></td>
                                                 </tr> 
                                             </c:forEach>
