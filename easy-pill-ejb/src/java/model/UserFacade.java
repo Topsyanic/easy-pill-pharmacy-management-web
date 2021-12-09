@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import utilities.Logged;
 
 
 /**
@@ -32,6 +33,7 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
 
+    @Logged
     public List<User> getUsersByEmail(String email) {
         Query q = em.createNamedQuery("User.findByEmail");
         q.setParameter(1, email);
@@ -39,6 +41,7 @@ public class UserFacade extends AbstractFacade<User> {
         return a;
     }
 
+    @Logged
     public User getAuthenticatedUser(String email) {
         Query q = em.createNamedQuery("User.findByEmail");
         q.setParameter(1, email);
@@ -51,6 +54,7 @@ public class UserFacade extends AbstractFacade<User> {
 
     }
 
+    @Logged
     public List<User> getAllCustomers() {
         Query q = em.createNamedQuery("User.findByUserRole");
         q.setParameter(1, "customer");
@@ -58,6 +62,7 @@ public class UserFacade extends AbstractFacade<User> {
         return a;
     }
 
+    @Logged
     public List<User> getAllDoctors() {
         Query q = em.createNamedQuery("User.findByUserRole");
         q.setParameter(1, "doctor");
@@ -65,6 +70,7 @@ public class UserFacade extends AbstractFacade<User> {
         return a;
     }
 
+    @Logged
     public List<User> getAllPharmacists() {
         Query q = em.createNamedQuery("User.findByUserRole");
         q.setParameter(1, "pharmacist");
@@ -72,6 +78,7 @@ public class UserFacade extends AbstractFacade<User> {
         return a;
     }
 
+    @Logged
     public void removeUser(String userId) {
         User u = em.find(User.class, userId);
         em.remove(em.merge(u));

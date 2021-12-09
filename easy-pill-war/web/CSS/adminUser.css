@@ -356,25 +356,25 @@ td{
 
 
 .paging-nav {
-  text-align:right;
-  padding-top:15px;
-  padding-bottom:15px;
-  margin-right: 15px;
+    text-align:right;
+    padding-top:15px;
+    padding-bottom:15px;
+    margin-right: 15px;
 }
 
 .paging-nav a {
-  margin:auto 1px;
-  text-decoration:none;
-  display: inline-block;
-  padding:5px 7px;
-  background:#1b4b80;
-  color:white;
-  border-radius:5px;
+    margin:auto 1px;
+    text-decoration:none;
+    display: inline-block;
+    padding:5px 7px;
+    background:#1b4b80;
+    color:white;
+    border-radius:5px;
 }
 
 .paging-nav .selected-page {
     background:#5b8abd;
-  font-weight:bold;
+    font-weight:bold;
 }
 
 .search-box{
@@ -383,3 +383,71 @@ td{
     border-radius: 5px;
 }
 
+.prescription-button{
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 17px 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    border: none;
+    background-color:#1b4b80;
+}
+.prescription-button:hover {
+    background-color: #5892d1;
+}
+.have-press{
+    color:#1b4b80;
+    margin-top:15px;
+    margin-bottom: 15px;
+}
+
+.no-pres{
+    color:#1b4b80;
+    margin-top:250px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.prescription-card{
+    width: 20%;
+    display: inline-block;
+    box-shadow: 2px 2px 5px black;
+    border-radius: 5px; 
+    margin: 2%;
+    background-color: #1b4b80;
+}
+.card-image img{
+    width: 100%;
+    object-fit: cover;
+    height: 250px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.card-details{
+    padding-left: 25px;
+    text-align: left;
+    color: white;
+    padding-top: 10px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;  
+}
+.date-text{
+   margin-left:25px;
+   padding-bottom: 10px;
+   color:white;
+   margin-right :auto;
+}
+
+.card-text{
+    padding-top: 5px;
+}
+.card-bottom{
+    padding-top: 15px;
+    margin-bottom: 15px;
+    display:flex;
+    
+    
+}

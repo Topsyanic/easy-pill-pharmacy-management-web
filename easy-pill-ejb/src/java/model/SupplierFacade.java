@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import utilities.Logged;
 
 /**
  *
@@ -30,7 +31,8 @@ public class SupplierFacade extends AbstractFacade<Supplier> {
     public SupplierFacade() {
         super(Supplier.class);
     }
-
+    
+    @Logged
     public Supplier getSupplierById(String supplierId) {
         Query q = em.createNamedQuery("Supplier.findBySupplierId");
         q.setParameter(1, supplierId);
@@ -41,7 +43,8 @@ public class SupplierFacade extends AbstractFacade<Supplier> {
             return a.get(0);
         }
     }
-
+    
+    @Logged
     public boolean updateAddress(String supplierId, String newAddress) {
         Query q = em.createNamedQuery("Supplier.updateAddress");
         q.setParameter(1, newAddress);
@@ -54,6 +57,7 @@ public class SupplierFacade extends AbstractFacade<Supplier> {
         }
     }
 
+    @Logged
     public boolean updateContactNo(String supplierId, String newContact) {
         Query q = em.createNamedQuery("Supplier.updateContactNo");
         q.setParameter(1, newContact);
@@ -66,6 +70,7 @@ public class SupplierFacade extends AbstractFacade<Supplier> {
         }
     }
 
+    @Logged
     public boolean removeSupplier(String supplierId) {
         Query q = em.createNamedQuery("Supplier.removeSupplier");
         q.setParameter(1, supplierId);
@@ -77,6 +82,7 @@ public class SupplierFacade extends AbstractFacade<Supplier> {
         }
     }
 
+    @Logged
     public List<Supplier> getSuppliersByEmail(String email) {
         Query q = em.createNamedQuery("Supplier.findByEmail");
         q.setParameter(1, email);

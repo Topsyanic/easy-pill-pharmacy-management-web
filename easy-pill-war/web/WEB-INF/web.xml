@@ -28,6 +28,14 @@
         <servlet-name>SupplierController</servlet-name>
         <servlet-class>controller.SupplierController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerController</servlet-name>
+        <servlet-class>controller.CustomerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrescriptionController</servlet-name>
+        <servlet-class>controller.PrescriptionController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
         <url-pattern>/UserController</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>SupplierController</servlet-name>
         <url-pattern>/SupplierController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerController</servlet-name>
+        <url-pattern>/CustomerController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrescriptionController</servlet-name>
+        <url-pattern>/PrescriptionController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
