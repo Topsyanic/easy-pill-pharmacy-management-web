@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -50,6 +52,25 @@ public class InventoryRequests implements Serializable {
     private String supplierId;
 
     public InventoryRequests() {
+    }
+    
+    @PrePersist
+    @PreUpdate
+    private void validate() {
+        if (requestId == null || "".equals(requestId)) {
+            throw new IllegalArgumentException("Invalid request id");
+        }
+        if (message == null || "".equals(message)) {
+            throw new IllegalArgumentException("Invalid message");
+        }
+        if (date == null || "".equals(date)) {
+            throw new IllegalArgumentException("Invalid date");
+        }
+        if (supplierId == null || "".equals(supplierId)) {
+            throw new IllegalArgumentException("Invalid supplier id");
+        }
+       
+
     }
 
     public InventoryRequests(String requestId) {

@@ -48,12 +48,15 @@
                     <li><a href="${precriptionLink}"><span class="las la-notes-medical"></span><span>Prescriptions</span></a></li>
                     <li><a href="${orderLink}" ><span class="las la-list"></span><span>Orders</span></a></li>
                     <li><a href="${historyLink}"><span class="las la-history"></span><span>History</span></a></li>
-                    <li><a href="${patientsLink}"><span class="las la-user"></span><span>Patients</span></a></li>
+                                <c:choose>
+                                    <c:when  test="${SessionDetails.getUserRole() == 'doctor'}">
+                            <li><a href="${patientsLink}"><span class="las la-user"></span><span>Patients</span></a></li>
+                                    </c:when>
+                                </c:choose>
                     <li><a href="${logoutLink}"><span class="las la-sign-out-alt"></span><span>Logout</span></a></li>
                 </ul>
             </div>
         </div>
-
         <div class="main-content">
             <header>
                 <h2>
@@ -62,12 +65,10 @@
                     </label>
                     Shop
                 </h2>
-
                 <div class="search-wrapper">
                     <span class="las la-search"></span>
                     <input type="search" placeholder="Search here"/>
                 </div>
-
                 <div class="user-wrapper">
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">
                     <div>
@@ -77,28 +78,66 @@
                 </div>
             </header>
             <main>
-                <!--                <div class="cards">
-                                    <div class="cards-single">
-                                        <div>
-                                            <h1>lol</h1>
-                                            <span>Suppliers</span>
-                                        </div>
-                                        <div>
-                                            <span class=" las la-truck"></span>
-                                        </div>
-                                    </div>
-                                    <div class="cards-single">
-                                        <div>
-                                            <h1>lol</h1>
-                                            <span>Requests Sent</span>
-                                        </div>
-                                        <div>
-                                            <span class="las la-envelope"></span>
-                                        </div>
-                                    </div>
-                                </div>-->
                 <div class="recent-grid">
                 </div>
+                <c:forEach var="tempList3" items="${MEDICINELIST}">
+                    <c:url var="cartLink" value="/customerAddToCartPage.jsp">
+                        <c:param name="name" value="${tempList3.name}"/>
+                        <c:param name="medicineId" value="${tempList3.medicineId}"/>
+                        <c:param name="weight" value="${tempList3.weight}"/>
+                        <c:param name="price" value="${tempList3.price}"/>
+                        <c:param name="imagePath" value="${tempList3.imagePath}"/>
+                        <c:param name="quantity" value="${tempList3.quantity}"/>
+                        <c:param name="requirePres" value="${tempList3.requirePres}"/>
+                        <c:param name="description" value="${tempList3.description}"/>
+                    </c:url>
+                    <div class="prescription-card">
+                        <div class="card-image">
+                            <img src="${tempList3.imagePath}"/>  
+                        </div>
+                        <h3 class="card-title-text">${tempList3.name}</h3>
+                        <div class="card-details">
+                            <p class="card-text">Availability - ${tempList3.quantity}</p>
+                            <p class="card-text">Weight - ${tempList3.weight}</p>
+                        </div>
+                        <div class="card-bottom">
+                            <c:choose>
+                                <c:when  test="${SessionDetails.userRole == 'doctor'}">
+                                    <c:choose>
+                                        <c:when  test="${tempList3.quantity > 0}">
+                                            <p class="instock-text">In Stock</p>
+                                            <h3 class="date-text">Rs.${tempList3.price}</h3>
+                                            <a class="cartButton" href='${cartLink}'><h1 class="las la-shopping-bag"></h1></a>
+                                            </c:when>
+                                            <c:otherwise>
+                                            <p class="outstock-text">Out Of Stock</p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:choose>
+                                        <c:when  test="${tempList3.requirePres == 'No'}">   
+                                            <c:choose>
+                                                <c:when  test="${tempList3.quantity > 0}">
+                                                    <p class="instock-text">In Stock</p>
+                                                    <h3 class="date-text">Rs.${tempList3.price}</h3>
+                                                    <a class="cartButton" href='${cartLink}'><h1 class="las la-shopping-bag"></h1></a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                    <p class="outstock-text">Out Of Stock</p>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p class="outstock-text">Requires Prescription</p>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </div>
+                    </div>
+                </c:forEach>
             </main>
         </div>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
@@ -106,7 +145,7 @@
         <script type="text/javascript" src="JS/paging.js"></script> 
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#tableData').paging({limit: 8});
+                $('#tableData').paging({limit: 2});
                 $('#tableData2').paging({limit: 8});
                 $('#tableData3').paging({limit: 8});
                 $('#search').keyup(function () {

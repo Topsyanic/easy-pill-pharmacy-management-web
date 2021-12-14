@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -72,6 +74,29 @@ public class Medicine implements Serializable {
     private String requirePres;
 
     public Medicine() {
+    }
+    
+    @PrePersist
+    @PreUpdate
+    private void validate(){
+    if (medicineId == null || "".equals(medicineId))
+        throw new IllegalArgumentException("Invalid medicine Id");
+    if (name == null || "".equals(name))
+        throw new IllegalArgumentException("Invalid name");
+    if (description == null || "".equals(description))
+        throw new IllegalArgumentException("Invalid description");
+    if (supplierId == null || "".equals(supplierId))
+        throw new IllegalArgumentException("Invalid supplier Id");
+    if (weight == null || "".equals(weight))
+        throw new IllegalArgumentException("Invalid weight");
+    if (price == null || "".equals(price))
+        throw new IllegalArgumentException("Invalid price");
+    if (imagePath == null || "".equals(imagePath))
+        throw new IllegalArgumentException("Invalid image path");
+    if (quantity == null || "".equals(quantity))
+        throw new IllegalArgumentException("Invalid quantity");
+    if (requirePres == null || "".equals(requirePres))
+        throw new IllegalArgumentException("Invalid require prescription");
     }
 
     public Medicine(String medicineId) {

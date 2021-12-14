@@ -50,7 +50,11 @@
                     <li><a href="${precriptionLink}" class="active"><span class="las la-notes-medical"></span><span>Prescriptions</span></a></li>
                     <li><a href="${orderLink}" ><span class="las la-list"></span><span>Orders</span></a></li>
                     <li><a href="${historyLink}"><span class="las la-history"></span><span>History</span></a></li>
-                    <li><a href="${patientsLink}"><span class="las la-user"></span><span>Patients</span></a></li>
+                                <c:choose>
+                                    <c:when  test="${SessionDetails.getUserRole() == 'doctor'}">
+                            <li><a href="${patientsLink}"><span class="las la-user"></span><span>Patients</span></a></li>
+                                    </c:when>
+                                </c:choose>
                     <li><a href="${logoutLink}"><span class="las la-sign-out-alt"></span><span>Logout</span></a></li>
                 </ul>
             </div>
@@ -94,7 +98,7 @@
                 </div>
                 <c:forEach var="tempList3" items="${PRESCRIPTIONLIST}">
                     <c:url var="deleteLink" value="PrescriptionController">
-                         <c:param name="command" value="DELETEPRES"/>
+                        <c:param name="command" value="DELETEPRES"/>
                         <c:param name="prescriptionId" value="${tempList3.prescriptionId}"/>
                         <c:param name="userId" value="${tempList3.userId}"/>
                     </c:url>
@@ -116,7 +120,6 @@
                                     <a class="deleteButton" href='${deleteLink}'><span class="las la-times"></span></a>
                                     </c:when>
                                 </c:choose>
-
                         </div>
 
                     </div>

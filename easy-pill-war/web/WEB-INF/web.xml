@@ -36,6 +36,10 @@
         <servlet-name>PrescriptionController</servlet-name>
         <servlet-class>controller.PrescriptionController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>controller.CartController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
         <url-pattern>/UserController</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>PrescriptionController</servlet-name>
         <url-pattern>/PrescriptionController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/CartController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

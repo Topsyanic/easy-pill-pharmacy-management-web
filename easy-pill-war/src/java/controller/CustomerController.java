@@ -5,12 +5,16 @@
  */
 package controller;
 
+import entities.Medicine;
 import java.io.IOException;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.MedicineFacade;
 import utilities.SessionDetails;
 
 /**
@@ -19,6 +23,10 @@ import utilities.SessionDetails;
  */
 public class CustomerController extends HttpServlet {
 
+    @EJB
+    private MedicineFacade medicineFacade;
+
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,6 +52,8 @@ public class CustomerController extends HttpServlet {
     private void redirectHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("username", SessionDetails.getUserFirstName() +" "+SessionDetails.getUserLastName());
         request.setAttribute("role", SessionDetails.getUserRole());
+        List<Medicine> medicineList = medicineFacade.findAll();
+        request.setAttribute("MEDICINELIST",medicineList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/customerHomePage.jsp");
         dispatcher.forward(request, response);
     }

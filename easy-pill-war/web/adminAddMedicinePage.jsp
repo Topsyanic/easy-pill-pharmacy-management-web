@@ -66,13 +66,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="metric-text"  for="metric"><p>Select weight metric</p></label>
-                                    <input type="radio" name="metric" value="litres">
+                                    <input type="radio" name="metric" value="l">
                                     <label class="metric-text" for="litres"> litres</label>
-                                    <input type="radio"  name="metric" value="millilitres">
+                                    <input type="radio"  name="metric" value="ml">
                                     <label class="metric-text" for="millilitres">millilitres</label>  
-                                    <input type="radio"  name="metric" value="grams">
+                                    <input type="radio"  name="metric" value="g">
                                     <label class="metric-text" for="grams">grams</label>  
-                                    <input type="radio"  name="metric" value="kilograms">
+                                    <input type="radio"  name="metric" value="kg">
                                     <label class="metric-text" for="kilograms">kilograms</label>  
 
                                 </div>

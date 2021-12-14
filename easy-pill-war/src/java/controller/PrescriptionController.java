@@ -109,9 +109,10 @@ public class PrescriptionController extends HttpServlet {
         request.setAttribute("username", SessionDetails.getUserFirstName() + " " + SessionDetails.getUserLastName());
         request.setAttribute("role", SessionDetails.getUserRole());
         String role = SessionDetails.getUserRole();
+        String userId = SessionDetails.getUserId();
         switch (role) {
             case "customer":
-                request.setAttribute("PRESCRIPTIONLIST", prescriptionFacade.findAll());
+                request.setAttribute("PRESCRIPTIONLIST", prescriptionFacade.getUserPrescriptions(userId));
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/customerPrescriptionPage.jsp");
                 dispatcher.forward(request, response);
                 break;

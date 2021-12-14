@@ -49,6 +49,14 @@ public class PrescriptionFacade extends AbstractFacade<Prescription> {
     }
 
     @Logged
+    public List<Prescription> getUserPrescriptions(String userId) {
+        Query q = em.createNamedQuery("Prescription.findUserPrescriptions");
+        q.setParameter(1, userId);
+        List<Prescription> a = q.getResultList();
+        return a;
+    }
+
+    @Logged
     public void confirmPrescription(String prescriptionId, String amount) {
         Prescription p = em.find(Prescription.class, prescriptionId);
         p.setBillAmount(amount);

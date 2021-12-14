@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -72,6 +74,39 @@ public class User implements Serializable {
     private String userRole;
 
     public User() {
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void validate() {
+        if (userId == null || "".equals(userId)) {
+            throw new IllegalArgumentException("Invalid user id");
+        }
+        if (firstName == null || "".equals(firstName)) {
+            throw new IllegalArgumentException("Invalid first name");
+        }
+        if (lastName == null || "".equals(lastName)) {
+            throw new IllegalArgumentException("Invalid last name");
+        }
+        if (email == null || "".equals(email)) {
+            throw new IllegalArgumentException("Invalid email");
+        }
+        if (password == null || "".equals(password)) {
+            throw new IllegalArgumentException("Invalid password");
+        }
+        if (contactNo == null || "".equals(contactNo)) {
+            throw new IllegalArgumentException("Invalid contact no");
+        }
+        if (address == null || "".equals(address)) {
+            throw new IllegalArgumentException("Invalid address");
+        }
+        if (expertise == null || "".equals(expertise)) {
+            throw new IllegalArgumentException("Invalid expertise");
+        }
+        if (userRole == null || "".equals(userRole)) {
+            throw new IllegalArgumentException("Invalid user role");
+        }
+
     }
 
     public User(String userId) {

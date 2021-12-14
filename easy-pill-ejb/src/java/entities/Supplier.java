@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -62,6 +64,22 @@ public class Supplier implements Serializable {
     private String email;
 
     public Supplier() {
+    }
+    
+    @PrePersist
+    @PreUpdate
+    private void validate(){
+    if (supplierId == null || "".equals(supplierId))
+        throw new IllegalArgumentException("Invalid supplier Id");
+    if (name == null || "".equals(name))
+        throw new IllegalArgumentException("Invalid name");
+    if (address == null || "".equals(address))
+        throw new IllegalArgumentException("Invalid address");
+    if (contactNo == null || "".equals(contactNo))
+        throw new IllegalArgumentException("Invalid contact no");
+    if (email == null || "".equals(email))
+        throw new IllegalArgumentException("Invalid email");
+   
     }
 
     public Supplier(String supplierId) {

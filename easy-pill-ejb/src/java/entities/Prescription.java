@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Prescription.findByStatus", query = "SELECT p FROM Prescription p WHERE p.status = :status")
     , @NamedQuery(name = "Prescription.findByDate", query = "SELECT p FROM Prescription p WHERE p.date = :date")
     , @NamedQuery(name = "Prescription.statusCount", query = "SELECT p FROM Prescription p WHERE p.status = ?1")
+    , @NamedQuery(name = "Prescription.findUserPrescriptions", query = "SELECT p FROM Prescription p WHERE p.userId = ?1")
     , @NamedQuery(name = "Prescription.findByBillAmount", query = "SELECT p FROM Prescription p WHERE p.billAmount = :billAmount")})
 public class Prescription implements Serializable {
 
@@ -67,6 +70,35 @@ public class Prescription implements Serializable {
     private String billAmount;
 
     public Prescription() {
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void validate() {
+        if (prescriptionId == null || "".equals(prescriptionId)) {
+            throw new IllegalArgumentException("Invalid prescription Id");
+        }
+        if (imagePath == null || "".equals(imagePath)) {
+            throw new IllegalArgumentException("Invalid image path");
+        }
+        if (address == null || "".equals(address)) {
+            throw new IllegalArgumentException("Invalid address");
+        }
+        if (contact == null || "".equals(contact)) {
+            throw new IllegalArgumentException("Invalid contact");
+        }
+        if (userId == null || "".equals(userId)) {
+            throw new IllegalArgumentException("Invalid user Id");
+        }
+        if (status == null || "".equals(status)) {
+            throw new IllegalArgumentException("Invalid status");
+        }
+        if (date == null || "".equals(date)) {
+            throw new IllegalArgumentException("Invalid date");
+        }
+        if (billAmount == null || "".equals(billAmount)) {
+            throw new IllegalArgumentException("Invalid bill amount");
+        }
     }
 
     public Prescription(String prescriptionId) {
