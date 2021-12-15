@@ -52,11 +52,10 @@ public class Cart implements Serializable {
     @Column(name = "product_name")
     private String productName;
     @Size(max = 256)
-    @Column(name = "quantity")
-    private String quantity;
-    @Size(max = 256)
     @Column(name = "sub_total")
     private String subTotal;
+    @Column(name = "quantity")
+    private Integer quantity;
 
     public Cart() {
     }
@@ -97,20 +96,20 @@ public class Cart implements Serializable {
         this.productName = productName;
     }
 
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
     public String getSubTotal() {
         return subTotal;
     }
 
     public void setSubTotal(String subTotal) {
         this.subTotal = subTotal;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     @Override

@@ -33,13 +33,16 @@
             <c:url var="uploadLink" value="/customerUploadPrescriptionPage.jsp">
             </c:url>
             <c:url var="orderLink" value="OrderController">
-                <c:param name="command" value="ORDER"/>
+                <c:param name="command" value="CUSTOMERORDERS"/>
             </c:url>
             <c:url var="historyLink" value="OrderController">
                 <c:param name="command" value="HISTORY"/>
             </c:url>
             <c:url var="patientsLink" value="UserController">
                 <c:param name="command" value="PATIENTS"/>
+            </c:url>
+            <c:url var="paymentLink" value="CartController">
+                <c:param name="command" value="PAYMENT"/>
             </c:url>
             <c:url var="logoutLink" value="LogoutServlet">
             </c:url>
@@ -94,6 +97,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3>Cart</h3>
+                                        <a href='${paymentLink}' class="customButton">Finish</a> 
                                         <input class="search-box" id="search2" placeholder="Search..." >
                                     </div>
                                     <div class="card-body">
@@ -125,9 +129,17 @@
                                                             <c:param name="cartId" value="${tempList3.cartId}"/>
                                                             <c:param name="medicineId" value="${tempList3.medicineId}"/>
                                                         </c:url>
+
                                                         <tr>
                                                             <td>${tempList3.productName}</td>
-                                                            <td><a href='${reduceLink}' class="customButton"> <span class="las la-minus"></span></a></td>
+                                                            <c:choose>
+                                                                <c:when  test="${tempList3.quantity > 1}">
+                                                                    <td><a href='${reduceLink}' class="customButton"> <span class="las la-minus"></span></a></td>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                    <td></td>
+                                                                </c:otherwise>
+                                                            </c:choose>
                                                             <td>${tempList3.quantity}</td>
                                                             <td><a href='${increaseLink}' class="customButton"> <span class="las la-plus"></span></a></td>
                                                             <td>Rs.${tempList3.subTotal}</td>

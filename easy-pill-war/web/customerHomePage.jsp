@@ -31,7 +31,7 @@
                 <c:param name="command" value="PRESCRIPTION"/>
             </c:url>
             <c:url var="orderLink" value="OrderController">
-                <c:param name="command" value="ORDER"/>
+                <c:param name="command" value="CUSTOMERORDERS"/>
             </c:url>
             <c:url var="historyLink" value="OrderController">
                 <c:param name="command" value="HISTORY"/>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : customerPrescriptionPage
-    Created on : Dec 9, 2021, 11:58:15 AM
+    Document   : customerOrderPage
+    Created on : Dec 15, 2021, 5:49:13 PM
     Author     : Topsy
 --%>
 
@@ -47,8 +47,8 @@
                 <ul>
                     <li><a href="${homeLink}" ><span class="las la-store-alt"></span><span>Shop</span></a></li>
                     <li><a href="${cartLink}"><span class="las la-shopping-bag"></span><span>Cart</span></a></li>
-                    <li><a href="${precriptionLink}" class="active"><span class="las la-notes-medical"></span><span>Prescriptions</span></a></li>
-                    <li><a href="${orderLink}" ><span class="las la-list"></span><span>Orders</span></a></li>
+                    <li><a href="${precriptionLink}" ><span class="las la-notes-medical"></span><span>Prescriptions</span></a></li>
+                    <li><a href="${orderLink}"  class="active"><span class="las la-list"></span><span>Orders</span></a></li>
                     <li><a href="${historyLink}"><span class="las la-history"></span><span>History</span></a></li>
                                 <c:choose>
                                     <c:when  test="${SessionDetails.getUserRole() == 'doctor'}">
@@ -66,7 +66,7 @@
                     <label for="nav-toggle">
                         <span class="las la-bars"></span>
                     </label>
-                    Prescriptions
+                    Orders
                 </h2>
 
                 <div class="search-wrapper">
@@ -83,44 +83,42 @@
                 </div>
             </header>
             <main>
-                    <p style="color:#1b4b80">${presMessage}</p>
-                <div>
-                    <button type="button"  class="prescription-button"  onclick="location.href = '${uploadLink}'">Upload <span class="las la-upload"></span></button>
-                </div>
+                <p style="color:#1b4b80">${orderMessage}</p>
                 <c:choose>
-                    <c:when  test="${PRESCRIPTIONLIST.size() == 0}">
-                        <h2 class="no-pres">No Prescriptions Available</h2>
+                    <c:when  test="${ORDERLIST.size() == 0}">
+                        <h2 class="no-pres">No Orders Available</h2>
                     </c:when>
                     <c:otherwise>
-                        <h2 class="have-press">Your Prescriptions</h2>
+                        <h2 class="have-press">Your Orders</h2>
                     </c:otherwise>
                 </c:choose>
                 <div class="recent-grid">
                 </div>
-                <c:forEach var="tempList3" items="${PRESCRIPTIONLIST}">
-                    <c:url var="deleteLink" value="PrescriptionController">
-                        <c:param name="command" value="DELETEPRES"/>
-                        <c:param name="prescriptionId" value="${tempList3.prescriptionId}"/>
-                        <c:param name="userId" value="${tempList3.userId}"/>
+                <c:forEach var="tempList3" items="${ORDERLIST}">
+                    <c:url var="deleteLink" value="OrderController">
+                        <c:param name="command" value="DELETE"/>
+                        <c:param name="orderId" value="${tempList3.orderId}"/>
                     </c:url>
-                    <div class="prescription-card">
-                        <div class="card-image">
-                            <img src="${tempList3.imagePath}"/>  
-                        </div>
-                        <div class="card-details">
-                            <p class="card-text">Prescription ID - ${tempList3.prescriptionId}</p>
-                            <p class="card-text">Status          - ${tempList3.status}</p>
-                            <p class="card-text">Bill Amount (Rs.)     - ${tempList3.billAmount}</p>
-                        </div>
-                        <div class="card-bottom">
-                            <p class="date-text">${tempList3.date} </p>
-                            <c:choose>
-                                <c:when  test="${tempList3.status == 'Pending'}">
-                                    <a class="deleteButton" href='${deleteLink}'><span class="las la-times"></span></a>
-                                    </c:when>
-                                </c:choose>
-                        </div>
-                    </div>
+                    <c:choose>
+                        <c:when  test="${tempList3.status == 'Pending'}">
+                            <div class="prescription-card">
+                                <div class="card-details">
+                                    <p class="card-text">Order ID - ${tempList3.orderId}</p>
+                                    <p class="card-text">Status          - ${tempList3.status}</p>
+                                    <p class="card-text">Bill Amount (Rs.)     - ${tempList3.amount}</p>
+                                </div>
+                                <div class="card-bottom">
+                                    <p class="date-text">${tempList3.date} </p>
+                                    <c:choose>
+                                        <c:when  test="${tempList3.status == 'Pending'}">
+                                            <a class="deleteButton" href='${deleteLink}'><span class="las la-times"></span></a>
+                                            </c:when>
+                                        </c:choose>
+                                </div>
+                            </div>
+                        </c:when>
+                    </c:choose>
+
                 </c:forEach>
             </main>
         </div>
@@ -128,34 +126,34 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
         <script type="text/javascript" src="JS/paging.js"></script> 
         <script type="text/javascript">
-                        $(document).ready(function () {
-                            $('#tableData').paging({limit: 8});
-                            $('#tableData2').paging({limit: 8});
-                            $('#tableData3').paging({limit: 8});
-                            $('#search').keyup(function () {
-                                search_table($(this).val(), 'myTable');
-                            });
-                            $('#search1').keyup(function () {
-                                search_table($(this).val(), 'myTable1');
-                            });
+            $(document).ready(function () {
+                $('#tableData').paging({limit: 8});
+                $('#tableData2').paging({limit: 8});
+                $('#tableData3').paging({limit: 8});
+                $('#search').keyup(function () {
+                    search_table($(this).val(), 'myTable');
+                });
+                $('#search1').keyup(function () {
+                    search_table($(this).val(), 'myTable1');
+                });
 
 
-                            function search_table(value, table) {
-                                $('#' + table + ' tr').each(function () {
-                                    var found = 'false';
-                                    $(this).each(function () {
-                                        if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                                            found = 'true';
-                                        }
-                                    });
-                                    if (found === 'true') {
-                                        $(this).show();
-                                    } else {
-                                        $(this).hide();
-                                    }
-                                });
+                function search_table(value, table) {
+                    $('#' + table + ' tr').each(function () {
+                        var found = 'false';
+                        $(this).each(function () {
+                            if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                                found = 'true';
                             }
                         });
+                        if (found === 'true') {
+                            $(this).show();
+                        } else {
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
         </script>
     </body>
 </html>

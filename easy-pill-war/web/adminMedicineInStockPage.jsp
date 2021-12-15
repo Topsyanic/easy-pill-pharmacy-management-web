@@ -157,16 +157,33 @@
                                                 <c:param name="medicineId" value="${tempList.medicineId}"/>
                                                 <c:param name="tab" value="instock"/>
                                             </c:url>
-                                            <tr>
-                                                <td>${tempList.name}</td>
-                                                <td>${tempList.description}</td>
-                                                <td>${tempList.weight}</td>
-                                                <td>${tempList.price}</td>
-                                                <td>${tempList.quantity}</td>
-                                                <td>${tempList.supplierId}</td>
-                                                <td>${tempList.requirePres}</td>
-                                                <td><a href='${editLink}' class="customButton"> <span class="las la-edit"></span></a></td>
-                                            </tr> 
+                                            <c:choose>
+                                                <c:when  test="${tempList.quantity < 10}">
+                                                    <tr>
+                                                        <td style="color:red">${tempList.name}</td>
+                                                        <td style="color:red">${tempList.description}</td>
+                                                        <td style="color:red">${tempList.weight}</td>
+                                                        <td style="color:red">${tempList.price}</td>
+                                                        <td style="color:red">${tempList.quantity}</td>
+                                                        <td style="color:red">${tempList.supplierId}</td>
+                                                        <td style="color:red">${tempList.requirePres}</td>
+                                                        <td><a href='${editLink}' class="customButton"> <span class="las la-edit"></span></a></td>
+                                                    </tr> 
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <tr>
+                                                        <td>${tempList.name}</td>
+                                                        <td>${tempList.description}</td>
+                                                        <td>${tempList.weight}</td>
+                                                        <td>${tempList.price}</td>
+                                                        <td>${tempList.quantity}</td>
+                                                        <td>${tempList.supplierId}</td>
+                                                        <td>${tempList.requirePres}</td>
+                                                        <td><a href='${editLink}' class="customButton"> <span class="las la-edit"></span></a></td>
+                                                    </tr> 
+                                                </c:otherwise>
+                                            </c:choose>
+
                                         </c:forEach>
                                     </tbody>
                                 </table>

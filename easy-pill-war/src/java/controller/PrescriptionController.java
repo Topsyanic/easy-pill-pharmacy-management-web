@@ -59,7 +59,7 @@ public class PrescriptionController extends HttpServlet {
         try {
             switch (command) {
                 case "PRESCRIPTION": {
-                    redirectHome(request, response);
+                    redirectHome(request, response,null);
                     break;
                 }
                 case "DELETEPRES": {
@@ -83,7 +83,7 @@ public class PrescriptionController extends HttpServlet {
         try {
             switch (command) {
                 case "PRESCRIPTION": {
-                    redirectHome(request, response);
+                    redirectHome(request, response,null);
                     break;
                 }
                 case "UPLOAD": {
@@ -105,13 +105,14 @@ public class PrescriptionController extends HttpServlet {
 
     }
 
-    private void redirectHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void redirectHome(HttpServletRequest request, HttpServletResponse response,String message) throws ServletException, IOException {
         request.setAttribute("username", SessionDetails.getUserFirstName() + " " + SessionDetails.getUserLastName());
         request.setAttribute("role", SessionDetails.getUserRole());
         String role = SessionDetails.getUserRole();
         String userId = SessionDetails.getUserId();
         switch (role) {
             case "customer":
+                request.setAttribute("presMessage", message);
                 request.setAttribute("PRESCRIPTIONLIST", prescriptionFacade.getUserPrescriptions(userId));
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/customerPrescriptionPage.jsp");
                 dispatcher.forward(request, response);
@@ -203,6 +204,6 @@ public class PrescriptionController extends HttpServlet {
         Path imagePath = FileSystems.getDefault().getPath("D:\\Documents\\NetBeansProjects\\easy-pill\\easy-pill-war\\web\\" + prescription.getImagePath());
         Files.deleteIfExists(imagePath);
         prescriptionFacade.removePrescription(prescriptionId);
-        redirectHome(request, response);
+        redirectHome(request, response,"Prescription was cancelled Successfully");
     }
 }

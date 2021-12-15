@@ -49,15 +49,19 @@ public class CartController extends HttpServlet {
                 break;
             }
             case "DELETE": {
-                removeFromCart(request, response, null);
+                removeFromCart(request, response);
                 break;
             }
             case "INCREASE": {
-                increaseCartItem(request, response, null);
+                increaseCartItem(request, response);
+                break;
+            }
+            case "PAYMENT": {
+                redirectPaymentPage(request, response);
                 break;
             }
             case "REDUCE": {
-                reduceCartItem(request, response, null);
+                reduceCartItem(request, response);
                 break;
             }
 
@@ -113,19 +117,19 @@ public class CartController extends HttpServlet {
         cart.setMedicineId(medicineId);
         cart.setProductName(medicine.getName());
         cart.setUserId(SessionDetails.getUserId());
-        cart.setQuantity(String.valueOf(quantity));
+        cart.setQuantity(quantity);
         cart.setSubTotal(Double.toString(quantity * price));
         cartFacade.create(cart);
         redirectHome(request, response, "Added to cart Successfully");
     }
 
-    private void removeFromCart(HttpServletRequest request, HttpServletResponse response, Object object) throws ServletException, IOException {
+    private void removeFromCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cartId = request.getParameter("cartId");
         cartFacade.removeCartItem(cartId);
         redirectHome(request, response, "Item removed Successfully");
     }
 
-    private void increaseCartItem(HttpServletRequest request, HttpServletResponse response, Object object) throws ServletException, IOException {
+    private void increaseCartItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cartId = request.getParameter("cartId");
         String medicineId = request.getParameter("medicineId");
         Medicine medicine = medicineFacade.find(medicineId);
@@ -134,13 +138,30 @@ public class CartController extends HttpServlet {
         redirectHome(request, response, "Item updated Successfully");
     }
 
-    private void reduceCartItem(HttpServletRequest request, HttpServletResponse response, Object object) throws ServletException, IOException {
+    private void reduceCartItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cartId = request.getParameter("cartId");
         String medicineId = request.getParameter("medicineId");
         Medicine medicine = medicineFacade.find(medicineId);
         double price = Double.parseDouble(medicine.getPrice());
         cartFacade.reduceCartItem(cartId, price);
         redirectHome(request, response, "Item updated Successfully");
+    }
+
+    private void redirectPaymentPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String userId = SessionDetails.getUserId();
+        List<Cart> cartList = cartFacade.getUserCart(userId);
+        String orderDetails = "";
+        double total = 0.0;
+        if (!cartList.isEmpty()) {
+            for (Cart cart : cartList) {
+                total = total + Double.parseDouble(cart.getSubTotal());
+                orderDetails = orderDetails + ", " + cart.getProductName() + " (" + cart.getQuantity()+ ") ";
+            }
+        }
+        request.setAttribute("cartTotal", total);
+        request.setAttribute("orderDetails", orderDetails);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/customerPaymentPage.jsp");
+        dispatcher.forward(request, response);
     }
 
 }
