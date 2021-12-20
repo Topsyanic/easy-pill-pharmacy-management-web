@@ -85,12 +85,6 @@
                     </label>
                     Pharmacists
                 </h2>
-
-                <div class="search-wrapper">
-                    <span class="las la-search"></span>
-                    <input type="search" placeholder="Search here"/>
-                </div>
-
                 <div class="user-wrapper">
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">
                     <div>
@@ -133,8 +127,12 @@
                 <div class="projects">
                     <div class="card">
                         <div class="card-header">
+                            <c:choose>
+                                <c:when  test="${role == 'admin'}">
+                                    <a href='${addPharmacist}' class="customButton">Add <span class="las la-plus"></span></a> 
+                                    </c:when>
+                                </c:choose>
                             <h3>Pharmacists</h3>
-                            <a href='${addPharmacist}' class="customButton">Add <span class="las la-plus"></span></a> 
                             <input class="search-box" id="search2" placeholder="Search..." >
                         </div>
                         <div class="card-body">
@@ -142,31 +140,41 @@
                                 <table width="100%" id="tableData3">
                                     <thead>
                                         <tr>
+                                            <td>User ID</td>
                                             <td>First Name</td>
                                             <td>Last Name</td>
                                             <td>Email</td>
                                             <td>Address</td>
                                             <td>Contact</td>
-                                            <td>Remove</td>
+                                            <c:choose>
+                                                <c:when  test="${role == 'admin'}">
+                                                    <td>Remove</td>
+                                                </c:when>
+                                            </c:choose>
                                         </tr>
                                     </thead>
                                     <tbody id="myTable2">
                                         <c:forEach var="tempList3" items="${PHARMACISTLIST}">
                                             <c:url var="deleteLink" value="/adminRemoveUserPage.jsp">
                                                 <c:param name="command" value="DELETEUSER"/>
-                                                 <c:param name="tab" value="pharmacist"/>
+                                                <c:param name="tab" value="pharmacist"/>
                                                 <c:param name="firstName" value="${tempList3.firstName}"/>
                                                 <c:param name="lastName" value="${tempList3.lastName}"/>
                                                 <c:param name="email" value="${tempList3.email}"/>
                                                 <c:param name="userId" value="${tempList3.userId}"/>
                                             </c:url>
                                             <tr>
+                                                <td>${tempList3.userId}</td>
                                                 <td>${tempList3.firstName}</td>
                                                 <td>${tempList3.lastName}</td>
                                                 <td>${tempList3.email}</td>
                                                 <td>${tempList3.address}</td>
                                                 <td>${tempList3.contactNo}</td>
-                                                <td><a href='${deleteLink}' class="deleteButton"> <span class="las la-times"></span></a></td>
+                                                <c:choose>
+                                                    <c:when  test="${role == 'admin'}">
+                                                        <td><a href='${deleteLink}' class="deleteButton"> <span class="las la-times"></span></a></td>
+                                                            </c:when>
+                                                        </c:choose>
                                             </tr> 
                                         </c:forEach>
                                     </tbody>

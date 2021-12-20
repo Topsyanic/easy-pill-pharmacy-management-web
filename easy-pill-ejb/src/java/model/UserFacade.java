@@ -61,6 +61,14 @@ public class UserFacade extends AbstractFacade<User> {
         List<User> a = q.getResultList();
         return a;
     }
+    
+     @Logged
+    public List<User> getAllNewCustomers() {
+        Query q = em.createNamedQuery("User.findByUserRole");
+        q.setParameter(1, "customer");
+        List<User> a = q.setMaxResults(10).getResultList();
+        return a;
+    }
 
     @Logged
     public List<User> getAllDoctors() {

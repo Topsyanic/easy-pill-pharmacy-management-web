@@ -49,7 +49,7 @@
                     <li><a href="${orderLink}" ><span class="las la-list"></span><span>Orders</span></a></li>
                     <li><a href="${historyLink}"><span class="las la-history"></span><span>History</span></a></li>
                                 <c:choose>
-                                    <c:when  test="${SessionDetails.getUserRole() == 'doctor'}">
+                                    <c:when  test="${role == 'doctor'}">
                             <li><a href="${patientsLink}"><span class="las la-user"></span><span>Patients</span></a></li>
                                     </c:when>
                                 </c:choose>
@@ -65,10 +65,16 @@
                     </label>
                     Shop
                 </h2>
-                <div class="search-wrapper">
-                    <span class="las la-search"></span>
-                    <input type="search" placeholder="Search here"/>
-                </div>
+                <form action="CustomerController" method="POST">
+                    <input type="hidden" name="command" value="SEARCH"/>
+                    <div class="search-wrapper">
+                        <span class="las la-search"></span>
+                        <input name ="keyword" placeholder="Search here" value="${keyword}"/>
+                        <input type="submit" name="submit" id="submit" class="form-submit" value="Search"/>
+                    </div>
+
+                </form>
+
                 <div class="user-wrapper">
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">
                     <div>
@@ -78,6 +84,7 @@
                 </div>
             </header>
             <main>
+
                 <div class="recent-grid">
                 </div>
                 <c:forEach var="tempList3" items="${MEDICINELIST}">
@@ -102,7 +109,7 @@
                         </div>
                         <div class="card-bottom">
                             <c:choose>
-                                <c:when  test="${SessionDetails.userRole == 'doctor'}">
+                                <c:when  test="${role == 'doctor'}">
                                     <c:choose>
                                         <c:when  test="${tempList3.quantity > 0}">
                                             <p class="instock-text">In Stock</p>
@@ -144,34 +151,34 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
         <script type="text/javascript" src="JS/paging.js"></script> 
         <script type="text/javascript">
-            $(document).ready(function () {
-                $('#tableData').paging({limit: 2});
-                $('#tableData2').paging({limit: 8});
-                $('#tableData3').paging({limit: 8});
-                $('#search').keyup(function () {
-                    search_table($(this).val(), 'myTable');
-                });
-                $('#search1').keyup(function () {
-                    search_table($(this).val(), 'myTable1');
-                });
+                            $(document).ready(function () {
+                                $('#tableData').paging({limit: 2});
+                                $('#tableData2').paging({limit: 8});
+                                $('#tableData3').paging({limit: 8});
+                                $('#search').keyup(function () {
+                                    search_table($(this).val(), 'myTable');
+                                });
+                                $('#search1').keyup(function () {
+                                    search_table($(this).val(), 'myTable1');
+                                });
 
 
-                function search_table(value, table) {
-                    $('#' + table + ' tr').each(function () {
-                        var found = 'false';
-                        $(this).each(function () {
-                            if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                                found = 'true';
-                            }
-                        });
-                        if (found === 'true') {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    });
-                }
-            });
+                                function search_table(value, table) {
+                                    $('#' + table + ' tr').each(function () {
+                                        var found = 'false';
+                                        $(this).each(function () {
+                                            if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                                                found = 'true';
+                                            }
+                                        });
+                                        if (found === 'true') {
+                                            $(this).show();
+                                        } else {
+                                            $(this).hide();
+                                        }
+                                    });
+                                }
+                            });
         </script>
     </body>
 </html>

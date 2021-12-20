@@ -51,6 +51,13 @@ public class CustomerOrderFacade extends AbstractFacade<CustomerOrder> {
         List<CustomerOrder> a = q.getResultList();
         return a;
     }
+    
+    @Logged
+    public List<CustomerOrder> getNewOrders() {
+        Query q = em.createNamedQuery("CustomerOrder.findAll");
+        List<CustomerOrder> a = q.setMaxResults(10).getResultList();
+        return a;
+    }
 
     @Logged
     @Transactional(rollbackOn = {ArrayIndexOutOfBoundsException.class},
@@ -89,6 +96,7 @@ public class CustomerOrderFacade extends AbstractFacade<CustomerOrder> {
         return a.size();
     }
 
+    @Logged
     public void confirmOrder(String orderId) {
         CustomerOrder c = em.find(CustomerOrder.class, orderId);
         c.setStatus("Confirmed");

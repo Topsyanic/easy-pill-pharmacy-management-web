@@ -44,6 +44,9 @@
             <c:url var="paymentLink" value="CartController">
                 <c:param name="command" value="PAYMENT"/>
             </c:url>
+            <c:url var="disposeLink" value="CartController">
+                <c:param name="command" value="DISPOSE"/>
+            </c:url>
             <c:url var="logoutLink" value="LogoutServlet">
             </c:url>
             <div class="sidebar-menu">
@@ -54,7 +57,7 @@
                     <li><a href="${orderLink}" ><span class="las la-list"></span><span>Orders</span></a></li>
                     <li><a href="${historyLink}"><span class="las la-history"></span><span>History</span></a></li>
                                 <c:choose>
-                                    <c:when  test="${SessionDetails.getUserRole() == 'doctor'}">
+                                    <c:when  test="${role == 'doctor'}">
                             <li><a href="${patientsLink}"><span class="las la-user"></span><span>Patients</span></a></li>
                                     </c:when>
                                 </c:choose>
@@ -71,12 +74,6 @@
                     </label>
                     Cart
                 </h2>
-
-                <div class="search-wrapper">
-                    <span class="las la-search"></span>
-                    <input type="search" placeholder="Search here"/>
-                </div>
-
                 <div class="user-wrapper">
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">
                     <div>
@@ -97,7 +94,8 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h3>Cart</h3>
-                                        <a href='${paymentLink}' class="customButton">Finish</a> 
+                                        <a href='${paymentLink}' class="customButton">Finish <span class="las la-check-double"></span></a> 
+                                        <a href='${disposeLink}' class="deleteButton">Dispose <span class="las la-trash"></span></a> 
                                         <input class="search-box" id="search2" placeholder="Search..." >
                                     </div>
                                     <div class="card-body">

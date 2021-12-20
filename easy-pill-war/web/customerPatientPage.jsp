@@ -1,6 +1,6 @@
 <%-- 
-    Document   : adminCustomersPage
-    Created on : Dec 8, 2021, 11:33:05 AM
+    Document   : customerPatientPage
+    Created on : Dec 19, 2021, 5:33:38 PM
     Author     : Topsy
 --%>
 
@@ -21,57 +21,40 @@
             <div class="sidebar-brand">
                 <h2> <span>EASY PILL</span></h2>
             </div>
+            <c:url var="homeLink" value="CustomerController">
+                <c:param name="command" value="HOME"/>
+            </c:url>
+            <c:url var="cartLink" value="CartController">
+                <c:param name="command" value="CART"/>
+            </c:url>
+            <c:url var="precriptionLink" value="PrescriptionController">
+                <c:param name="command" value="PRESCRIPTION"/>
+            </c:url>
+            <c:url var="uploadLink" value="/customerUploadPrescriptionPage.jsp">
+            </c:url>
+            <c:url var="orderLink" value="OrderController">
+                <c:param name="command" value="CUSTOMERORDERS"/>
+            </c:url>
+            <c:url var="historyLink" value="OrderController">
+                <c:param name="command" value="HISTORY"/>
+            </c:url>
+            <c:url var="patientsLink" value="UserController">
+                <c:param name="command" value="PATIENTS"/>
+            </c:url>
+            <c:url var="logoutLink" value="LogoutServlet">
+            </c:url>
             <div class="sidebar-menu">
-                <c:url var="dashboardLink" value="AdminController">
-                    <c:param name="command" value="HOME"/>
-                </c:url>
-                <c:url var="customerLink" value="UserController">
-                    <c:param name="command" value="USER"/>
-                    <c:param name="tab" value="customer"/>
-                </c:url>
-                <c:url var="doctorLink" value="UserController">
-                    <c:param name="command" value="USER"/>
-                    <c:param name="tab" value="doctor"/>
-                </c:url>
-                <c:url var="pharmacistLink" value="UserController">
-                    <c:param name="command" value="USER"/>
-                    <c:param name="tab" value="pharmacist"/>
-                </c:url>
-                <c:url var="inStockLink" value="MedicineController">
-                    <c:param name="command" value="MEDICINE"/>
-                    <c:param name="tab" value="instock"/>
-                </c:url>
-                <c:url var="outStockLink" value="MedicineController">
-                    <c:param name="command" value="MEDICINE"/>
-                    <c:param name="tab" value="outstock"/>
-                </c:url>
-                <c:url var="supplierLink" value="SupplierController">
-                    <c:param name="command" value="SUPPLIER"/>
-                </c:url>
-                <c:url var="precriptionLink" value="PrescriptionController">
-                    <c:param name="command" value="PRESCRIPTION"/>
-                </c:url>
-                <c:url var="orderLink" value="OrderController">
-                    <c:param name="command" value="ORDER"/>
-                </c:url>
-                <c:url var="addCustomer" value="/adminAddCustomerPage.jsp">
-                </c:url>
-                <c:url var="addPharmacist" value="/adminAddPharmacistPage.jsp">
-                </c:url>
-                <c:url var="addDoctor" value="/adminAddDoctorPage.jsp">
-                </c:url>
-                <c:url var="logoutLink" value="LogoutServlet">
-                </c:url>
                 <ul>
-                    <li><a href="${dashboardLink}"><span class="las la-home"></span><span>Dashboard</span></a></li>
-                    <li><a href="${customerLink}" class="active"><span class="las la-user-alt"></span><span>Customers</span></a></li>
-                    <li><a href="${doctorLink}"><span class="las la-stethoscope"></span><span>Doctors</span></a></li>
-                    <li><a href="${pharmacistLink}" ><span class="las la-user-nurse"></span><span>Pharmacists</span></a></li>
-                    <li><a href="${inStockLink}"><span class="las la-first-aid"></span><span>Medicine In Stock</span></a></li>
-                    <li><a href="${outStockLink}"><span class="las la-band-aid"></span><span>Medicine Out of Stock</span></a></li>
-                    <li><a href="${supplierLink}"><span class="las la-truck"></span><span>Suppliers</span></a></li>
-                    <li><a href="${orderLink}"><span class="las la-shopping-cart"></span><span>Orders</span></a></li>
-                    <li><a href="${precriptionLink}"><span class="las la-notes-medical"></span><span>Prescriptions</span></a></li>
+                    <li><a href="${homeLink}" ><span class="las la-store-alt"></span><span>Shop</span></a></li>
+                    <li><a href="${cartLink}"><span class="las la-shopping-bag"></span><span>Cart</span></a></li>
+                    <li><a href="${precriptionLink}" ><span class="las la-notes-medical"></span><span>Prescriptions</span></a></li>
+                    <li><a href="${orderLink}" ><span class="las la-list"></span><span>Orders</span></a></li>
+                    <li><a href="${historyLink}"><span class="las la-history"></span><span>History</span></a></li>
+                                <c:choose>
+                                    <c:when  test="${role == 'doctor'}">
+                            <li><a href="${patientsLink}"  class="active"><span class="las la-user"></span><span>Patients</span></a></li>
+                                    </c:when>
+                                </c:choose>
                     <li><a href="${logoutLink}"><span class="las la-sign-out-alt"></span><span>Logout</span></a></li>
                 </ul>
             </div>
@@ -83,7 +66,7 @@
                     <label for="nav-toggle">
                         <span class="las la-bars"></span>
                     </label>
-                    Customers
+                    Patients
                 </h2>
                 <div class="user-wrapper">
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">
@@ -98,28 +81,10 @@
                     <div class="cards-single">
                         <div>
                             <h1>${customerCount}</h1>
-                            <span>Customers</span>
+                            <span>Patients</span>
                         </div>
                         <div>
                             <span class=" las la-user-alt"></span>
-                        </div>
-                    </div>
-                    <div class="cards-single">
-                        <div>
-                            <h1>${doctorCount}</h1>
-                            <span>Doctors</span>
-                        </div>
-                        <div>
-                            <span class="las la-stethoscope"></span>
-                        </div>
-                    </div>
-                    <div class="cards-single">
-                        <div>
-                            <h1>${pharmacistCount}</h1>
-                            <span>Pharmacists</span>
-                        </div>
-                        <div>
-                            <span class="las la-user-nurse"></span>
                         </div>
                     </div>
                 </div>
@@ -127,8 +92,7 @@
                 <div class="projects">
                     <div class="card">
                         <div class="card-header">
-                            <h3>Customers</h3>
-                            <a href='${addCustomer}' class="customButton">Add <span class="las la-plus"></span></a> 
+                            <h3>Patients</h3>
                             <input class="search-box" id="search" placeholder="Search..." >
                         </div>
                         <div class="card-body">
@@ -142,7 +106,6 @@
                                             <td>Email</td>
                                             <td>Address</td>
                                             <td>Contact</td>
-                                            <td>Remove</td>
                                         </tr>
                                     </thead>
                                     <tbody id="myTable">
@@ -162,7 +125,6 @@
                                                 <td>${tempList.email}</td>
                                                 <td>${tempList.address}</td>
                                                 <td>${tempList.contactNo}</td>
-                                                <td><a href='${deleteLink}' class="deleteButton"> <span class="las la-times"></span></a></td>
                                             </tr> 
                                         </c:forEach>
                                     </tbody>

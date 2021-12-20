@@ -52,6 +52,10 @@ public class CartController extends HttpServlet {
                 removeFromCart(request, response);
                 break;
             }
+            case "DISPOSE": {
+                removeCart(request, response);
+                break;
+            }
             case "INCREASE": {
                 increaseCartItem(request, response);
                 break;
@@ -162,6 +166,12 @@ public class CartController extends HttpServlet {
         request.setAttribute("orderDetails", orderDetails);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/customerPaymentPage.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void removeCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       String userId = SessionDetails.getUserId();
+        cartFacade.disposeCart(userId);
+        redirectHome(request, response, "Cart Disposed Successfully");
     }
 
 }

@@ -48,6 +48,8 @@ public class UserController extends HttpServlet {
         switch (command) {
             case "USER":
                 redirectAdminUser(request, response);
+            case "PATIENTS":
+                redirectDoctorUser(request, response);
 
         }
 
@@ -202,6 +204,16 @@ public class UserController extends HttpServlet {
             dispatcher.forward(request, response);
         }
 
+    }
+
+    private void redirectDoctorUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<User> customerList = userFacade.getAllCustomers();
+        request.setAttribute("username", SessionDetails.getUserFirstName() + " " + SessionDetails.getUserLastName());
+        request.setAttribute("role", SessionDetails.getUserRole());
+        request.setAttribute("customerCount", customerList.size());
+        request.setAttribute("CUSTOMERLIST", customerList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customerPatientPage.jsp");
+        dispatcher.forward(request, response);
     }
 
 }

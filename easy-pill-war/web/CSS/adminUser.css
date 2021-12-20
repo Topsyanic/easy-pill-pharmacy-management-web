@@ -290,7 +290,7 @@ td{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding:.5rem .7rem;
+    padding:.5rem 1rem;
 }
 .info{
     display:flex;
@@ -594,4 +594,47 @@ td{
 
 .product-disable{
     background: #ccc;
+}
+
+.linkButton{
+    text-decoration: none;
+    padding:10px 10px;
+    background-color: #1b4b80;
+    color:#fff;
+    border-radius: 10px;
+    font-size:13px;
+}
+.linkButton:hover{
+    transition: 200ms;
+    background-color:#5b8abd;
+}
+
+.search-box{
+    padding-left: 30%;
+    padding-top: 3%;
+}
+.search-input{
+    background-color: #1A1A1A;
+    text-align: center;
+    border:3px solid white;
+    color: white;
+    height:40px;
+    width:500px;
+
+
+}
+
+.search-btn{
+    color:#000000;
+    background:#fff;
+    padding:15px 20px;
+    font-size:13px;
+    text-decoration:none;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+
+.search-select{
+    padding:15px 20px;
 }

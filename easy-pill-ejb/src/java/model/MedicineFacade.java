@@ -83,4 +83,12 @@ public class MedicineFacade extends AbstractFacade<Medicine> {
         em.remove(em.merge(m));
     }
 
+    @Logged
+    public List<Medicine> searchMedicine(String keyword) {
+      Query q = em.createNamedQuery("Medicine.searchMedicine");
+        q.setParameter(1, "%"+keyword+"%");
+        List<Medicine> a = q.getResultList();
+        return a;
+    }
+
 }

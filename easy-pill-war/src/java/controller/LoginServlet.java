@@ -64,11 +64,11 @@ public class LoginServlet extends HttpServlet {
                     break;
                 }
                 case "pharmacist": {
-                    response.sendRedirect("PharmacistController");
+                    response.sendRedirect("AdminController");
                     break;
                 }
                 case "doctor": {
-                    response.sendRedirect("DoctorController");
+                    response.sendRedirect("CustomerController");
                     break;
                 }
             }

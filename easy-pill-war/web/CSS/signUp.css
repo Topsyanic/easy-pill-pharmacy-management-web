@@ -530,4 +530,17 @@ body::-webkit-scrollbar-thumb{
     background: #6649b8;
 }
 
+.linkButton{
+    text-decoration: none;
+    padding:10px 10px;
+    background-color: #1b4b80;
+    color:#fff;
+    border-radius: 10px;
+    font-size:13px;
+}
+.linkButton:hover{
+    transition: 200ms;
+    background-color:#5b8abd;
+}
+
 /*# sourceMappingURL=style.css.map */

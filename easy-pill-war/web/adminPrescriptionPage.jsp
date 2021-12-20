@@ -85,12 +85,6 @@
                     </label>
                     Prescription
                 </h2>
-
-                <div class="search-wrapper">
-                    <span class="las la-search"></span>
-                    <input type="search" placeholder="Search here"/>
-                </div>
-
                 <div class="user-wrapper">
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">
                     <div>
@@ -138,7 +132,11 @@
                                             <td>Status</td>
                                             <td>Date</td>
                                             <td>Bill Amount</td>
-                                            <td>Remove</td>
+                                            <c:choose>
+                                                <c:when  test="${role == 'admin'}">
+                                                    <td>Remove</td>
+                                                </c:when>
+                                            </c:choose>
                                             <td>View</td>
                                             <td>Confirm</td>
                                         </tr>
@@ -164,7 +162,11 @@
                                                 <td>${tempList3.status}</td>
                                                 <td>${tempList3.date}</td>
                                                 <td>${tempList3.billAmount}</td>
-                                                <td><a href='${deleteLink}' class="deleteButton"> <span class="las la-times"></span></a></td>
+                                                <c:choose>
+                                                    <c:when  test="${role == 'admin'}">
+                                                        <td><a href='${deleteLink}' class="deleteButton"> <span class="las la-times"></span></a></td>
+                                                            </c:when>
+                                                        </c:choose>
                                                 <td><a href='${viewLink}' class="customButton"> <span class="las la-eye"></span></a></td>
                                                         <c:choose>
                                                             <c:when  test="${tempList3.status == 'Pending'}">

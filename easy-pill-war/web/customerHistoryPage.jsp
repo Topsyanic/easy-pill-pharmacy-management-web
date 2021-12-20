@@ -51,7 +51,7 @@
                     <li><a href="${orderLink}" ><span class="las la-list"></span><span>Orders</span></a></li>
                     <li><a href="${historyLink}"  class="active"><span class="las la-history"></span><span>History</span></a></li>
                                 <c:choose>
-                                    <c:when  test="${SessionDetails.getUserRole() == 'doctor'}">
+                                    <c:when  test="${role == 'doctor'}">
                             <li><a href="${patientsLink}"><span class="las la-user"></span><span>Patients</span></a></li>
                                     </c:when>
                                 </c:choose>
@@ -68,11 +68,6 @@
                     </label>
                     History
                 </h2>
-
-                <div class="search-wrapper">
-                    <span class="las la-search"></span>
-                    <input type="search" placeholder="Search here"/>
-                </div>
 
                 <div class="user-wrapper">
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">

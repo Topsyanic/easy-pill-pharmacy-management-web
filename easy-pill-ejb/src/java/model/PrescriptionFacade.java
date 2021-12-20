@@ -64,6 +64,7 @@ public class PrescriptionFacade extends AbstractFacade<Prescription> {
         em.merge(p);
     }
 
+    @Logged
     public void removePrescription(String prescriptionId) {
         Prescription p = em.find(Prescription.class, prescriptionId);
         em.remove(em.merge(p));

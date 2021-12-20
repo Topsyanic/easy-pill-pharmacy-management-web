@@ -11,7 +11,7 @@
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="CSS/adminHome.css">
+        <link rel="stylesheet" href="CSS/adminUser.css">
         <title>Easy Pill Admin</title>
         <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     </head>
@@ -79,12 +79,6 @@
                     </label>
                     Dashboard
                 </h2>
-
-                <div class="search-wrapper">
-                    <span class="las la-search"></span>
-                    <input type="search" placeholder="Search here"/>
-                </div>
-
                 <div class="user-wrapper">
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">
                     <div>
@@ -93,7 +87,6 @@
                     </div>
                 </div>
             </header>
-
             <main>
                 <div class="cards">
                     <div class="cards-single">
@@ -128,7 +121,7 @@
                     <div class="projects">
                         <div class="card">
                             <div class="card-header">
-                                <h3>Recent Order</h3>
+                                <h3>Recent Orders</h3>
                                 <a class="linkButton" href="${orderLink}">See More <span class="las la-arrow-right"></span></a>
                             </div>
 
@@ -138,15 +131,15 @@
                                         <thead>
                                             <tr>
                                                 <td>Order Id</td>
-                                                <td>Details</td>
+                                                <td>Status</td>
                                                 <td>Date</td>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach var="tempList" items="${OFFERLIST}">
+                                            <c:forEach var="tempList" items="${ORDERLIST}">
                                                 <tr>
-                                                    <td>${tempList.offerId}</td>
-                                                    <td>${tempList.message}</td>
+                                                    <td>${tempList.orderId}</td>
+                                                    <td>${tempList.status}</td>
                                                     <td>${tempList.date}</td>
                                                 </tr> 
                                             </c:forEach>
@@ -163,13 +156,13 @@
                                 <a class="linkButton" href="${customerLink}">See More <span class="las la-arrow-right"></span></a>
                             </div>
                             <div class="card-body">
-                                <c:forEach var="tempList" items="${UNVERIFIEDLIST}">
+                                <c:forEach var="tempList" items="${CUSTOMERLIST}">
                                     <div class="customer" >
                                         <div class="info">
-                                            <img src="${tempList.photoUrl}" width="40px" height="40px" alt="">
+                                            <img src="IMG/user.png" width="40px" height="40px" alt="">
                                             <div>
                                                 <h4>${tempList.firstName} ${tempList.lastName}</h4>
-                                                <small>${tempList.plan}</small>
+                                                <small>${tempList.email}</small>
                                             </div>
                                         </div>
                                         <div class="contact"> 
@@ -185,11 +178,5 @@
         </div>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="JS/paging.js"></script> 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#tableData').paging({limit: 10});
-            });
-        </script>
     </body>
 </html>

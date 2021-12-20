@@ -46,6 +46,21 @@ public class CustomerController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String command = request.getParameter("command");
+        if (command == null) {
+            command = "HOME";
+        }
+        switch (command) {
+            case "HOME": {
+                redirectHome(request, response);
+                break;
+            }
+            case "SEARCH": {
+                searchResult(request, response);
+                break;
+            }
+
+        }
         
 
     }
@@ -55,6 +70,16 @@ public class CustomerController extends HttpServlet {
         request.setAttribute("role", SessionDetails.getUserRole());
         List<Medicine> medicineList = medicineFacade.findAll();
         request.setAttribute("MEDICINELIST",medicineList);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/customerHomePage.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void searchResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String keyword = request.getParameter("keyword");
+        System.out.println("THE KEYWORD IS "+keyword);
+        List<Medicine> medicineList = medicineFacade.searchMedicine(keyword);
+        request.setAttribute("MEDICINELIST",medicineList);
+        request.setAttribute("keyword", keyword);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/customerHomePage.jsp");
         dispatcher.forward(request, response);
     }

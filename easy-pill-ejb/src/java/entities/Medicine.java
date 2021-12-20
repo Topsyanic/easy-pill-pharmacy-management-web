@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Medicine.findByImagePath", query = "SELECT m FROM Medicine m WHERE m.imagePath = :imagePath")
     , @NamedQuery(name = "Medicine.findByQuantity", query = "SELECT m FROM Medicine m WHERE m.quantity = :quantity")
     , @NamedQuery(name = "Medicine.findAllInStock", query = "SELECT m FROM Medicine m WHERE m.quantity > ?1 ")
+    , @NamedQuery(name = "Medicine.searchMedicine", query = "SELECT m FROM Medicine m WHERE m.name LIKE ?1 OR m.description LIKE ?1 OR m.price LIKE ?1")
     , @NamedQuery(name = "Medicine.findAllOutOfStock", query = "SELECT m FROM Medicine m WHERE m.quantity = ?1 ")
 })
 public class Medicine implements Serializable {
@@ -75,28 +76,37 @@ public class Medicine implements Serializable {
 
     public Medicine() {
     }
-    
+
     @PrePersist
     @PreUpdate
-    private void validate(){
-    if (medicineId == null || "".equals(medicineId))
-        throw new IllegalArgumentException("Invalid medicine Id");
-    if (name == null || "".equals(name))
-        throw new IllegalArgumentException("Invalid name");
-    if (description == null || "".equals(description))
-        throw new IllegalArgumentException("Invalid description");
-    if (supplierId == null || "".equals(supplierId))
-        throw new IllegalArgumentException("Invalid supplier Id");
-    if (weight == null || "".equals(weight))
-        throw new IllegalArgumentException("Invalid weight");
-    if (price == null || "".equals(price))
-        throw new IllegalArgumentException("Invalid price");
-    if (imagePath == null || "".equals(imagePath))
-        throw new IllegalArgumentException("Invalid image path");
-    if (quantity == null || "".equals(quantity))
-        throw new IllegalArgumentException("Invalid quantity");
-    if (requirePres == null || "".equals(requirePres))
-        throw new IllegalArgumentException("Invalid require prescription");
+    private void validate() {
+        if (medicineId == null || "".equals(medicineId)) {
+            throw new IllegalArgumentException("Invalid medicine Id");
+        }
+        if (name == null || "".equals(name)) {
+            throw new IllegalArgumentException("Invalid name");
+        }
+        if (description == null || "".equals(description)) {
+            throw new IllegalArgumentException("Invalid description");
+        }
+        if (supplierId == null || "".equals(supplierId)) {
+            throw new IllegalArgumentException("Invalid supplier Id");
+        }
+        if (weight == null || "".equals(weight)) {
+            throw new IllegalArgumentException("Invalid weight");
+        }
+        if (price == null || "".equals(price)) {
+            throw new IllegalArgumentException("Invalid price");
+        }
+        if (imagePath == null || "".equals(imagePath)) {
+            throw new IllegalArgumentException("Invalid image path");
+        }
+        if (quantity == null || "".equals(quantity)) {
+            throw new IllegalArgumentException("Invalid quantity");
+        }
+        if (requirePres == null || "".equals(requirePres)) {
+            throw new IllegalArgumentException("Invalid require prescription");
+        }
     }
 
     public Medicine(String medicineId) {
@@ -166,6 +176,7 @@ public class Medicine implements Serializable {
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
+
     @Override
     public int hashCode() {
         int hash = 0;

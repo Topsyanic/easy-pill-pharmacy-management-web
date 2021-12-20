@@ -59,7 +59,7 @@ public class PrescriptionController extends HttpServlet {
         try {
             switch (command) {
                 case "PRESCRIPTION": {
-                    redirectHome(request, response,null);
+                    redirectHome(request, response, null);
                     break;
                 }
                 case "DELETEPRES": {
@@ -83,7 +83,7 @@ public class PrescriptionController extends HttpServlet {
         try {
             switch (command) {
                 case "PRESCRIPTION": {
-                    redirectHome(request, response,null);
+                    redirectHome(request, response, null);
                     break;
                 }
                 case "UPLOAD": {
@@ -105,7 +105,7 @@ public class PrescriptionController extends HttpServlet {
 
     }
 
-    private void redirectHome(HttpServletRequest request, HttpServletResponse response,String message) throws ServletException, IOException {
+    private void redirectHome(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
         request.setAttribute("username", SessionDetails.getUserFirstName() + " " + SessionDetails.getUserLastName());
         request.setAttribute("role", SessionDetails.getUserRole());
         String role = SessionDetails.getUserRole();
@@ -117,12 +117,25 @@ public class PrescriptionController extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/customerPrescriptionPage.jsp");
                 dispatcher.forward(request, response);
                 break;
+            case "doctor":
+                request.setAttribute("presMessage", message);
+                request.setAttribute("PRESCRIPTIONLIST", prescriptionFacade.getUserPrescriptions(userId));
+                RequestDispatcher dispatcher5 = request.getRequestDispatcher("/customerPrescriptionPage.jsp");
+                dispatcher5.forward(request, response);
+                break;
             case "admin":
                 request.setAttribute("pendingCount", prescriptionFacade.getPendingCount());
                 request.setAttribute("confirmedCount", prescriptionFacade.getConfirmedCount());
                 request.setAttribute("PRESCRIPTIONLIST", prescriptionFacade.findAll());
                 RequestDispatcher dispatcher2 = request.getRequestDispatcher("/adminPrescriptionPage.jsp");
                 dispatcher2.forward(request, response);
+                break;
+            case "pharmacist":
+                request.setAttribute("pendingCount", prescriptionFacade.getPendingCount());
+                request.setAttribute("confirmedCount", prescriptionFacade.getConfirmedCount());
+                request.setAttribute("PRESCRIPTIONLIST", prescriptionFacade.findAll());
+                RequestDispatcher dispatcher3 = request.getRequestDispatcher("/adminPrescriptionPage.jsp");
+                dispatcher3.forward(request, response);
                 break;
 
         }
@@ -204,6 +217,6 @@ public class PrescriptionController extends HttpServlet {
         Path imagePath = FileSystems.getDefault().getPath("D:\\Documents\\NetBeansProjects\\easy-pill\\easy-pill-war\\web\\" + prescription.getImagePath());
         Files.deleteIfExists(imagePath);
         prescriptionFacade.removePrescription(prescriptionId);
-        redirectHome(request, response,"Prescription was cancelled Successfully");
+        redirectHome(request, response, "Prescription was cancelled Successfully");
     }
 }

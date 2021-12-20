@@ -84,12 +84,6 @@
                     </label>
                     Suppliers
                 </h2>
-
-                <div class="search-wrapper">
-                    <span class="las la-search"></span>
-                    <input type="search" placeholder="Search here"/>
-                </div>
-
                 <div class="user-wrapper">
                     <img src="IMG/admin.jpg" width="40px" height="40px" alt="">
                     <div>
@@ -125,7 +119,11 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>Suppliers</h3>
-                            <a href='${addSupplier}' class="customButton">Add <span class="las la-plus"></span></a> 
+                            <c:choose>
+                                <c:when  test="${role == 'admin'}">
+                                    <a href='${addSupplier}' class="customButton">Add <span class="las la-plus"></span></a> 
+                                    </c:when>
+                                </c:choose>
                             <input class="search-box" id="search" placeholder="Search..." >
                         </div>
                         <div class="card-body">
@@ -138,7 +136,11 @@
                                             <td>Address</td>
                                             <td>Contact No</td>
                                             <td>email</td>
-                                            <td>Option</td>
+                                            <c:choose>
+                                                <c:when  test="${role == 'admin'}">
+                                                    <td>Option</td>
+                                                </c:when>
+                                            </c:choose>
                                         </tr>
                                     </thead>
                                     <tbody id="myTable">
@@ -152,7 +154,11 @@
                                                 <td>${tempList.address}</td>
                                                 <td>${tempList.contactNo}</td>
                                                 <td>${tempList.email}</td>
-                                                <td><a href='${editLink}' class="customButton"> <span class="las la-edit"></span></a></td>
+                                                <c:choose>
+                                                    <c:when  test="${role == 'admin'}">
+                                                        <td><a href='${editLink}' class="customButton"> <span class="las la-edit"></span></a></td>
+                                                            </c:when>
+                                                        </c:choose>
                                             </tr> 
                                         </c:forEach>
                                     </tbody>

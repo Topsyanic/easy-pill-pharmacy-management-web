@@ -43,11 +43,13 @@ public class CartFacade extends AbstractFacade<Cart> {
         return a;
     }
 
+    @Logged
     public void removeCartItem(String cartId) {
         Cart c = em.find(Cart.class, cartId);
         em.remove(em.merge(c));
     }
 
+    @Logged
     public void increaseCartItem(String cartId, double price) {
         Cart c = em.find(Cart.class, cartId);
         int newQuantity = (c.getQuantity() + 1);
@@ -56,6 +58,7 @@ public class CartFacade extends AbstractFacade<Cart> {
         em.merge(c);
     }
 
+    @Logged
     public void reduceCartItem(String cartId, double price) {
         Cart c = em.find(Cart.class, cartId);
         int newQuantity = (c.getQuantity() - 1);
@@ -64,6 +67,7 @@ public class CartFacade extends AbstractFacade<Cart> {
         em.merge(c);
     }
 
+    @Logged
     @Transactional(rollbackOn = {ArrayIndexOutOfBoundsException.class},
             dontRollbackOn = {SQLWarning.class, SQLException.class})
     public void disposeCart(String userId) {
