@@ -6,7 +6,9 @@
 package service;
 
 import entities.Cart;
+import entities.Medicine;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +21,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import model.CartFacade;
+import model.MedicineFacade;
+import utilities.CartIdGenerator;
+import utilities.RestMessage;
 
 /**
  *
@@ -27,6 +33,15 @@ import javax.ws.rs.core.MediaType;
 @Stateless
 @Path("entities.cart")
 public class CartFacadeREST extends AbstractFacade<Cart> {
+
+    @EJB
+    private CartFacade cartFacade;
+
+    @EJB
+    private CartIdGenerator cartIdGenerator;
+
+    @EJB
+    private MedicineFacade medicineFacade;
 
     @PersistenceContext(unitName = "easy-pill-ejbPU")
     private EntityManager em;
@@ -76,6 +91,74 @@ public class CartFacadeREST extends AbstractFacade<Cart> {
         return super.findRange(new int[]{from, to});
     }
 
+    @POST
+    @Path("{userId}/{medicineId}/{qty}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public RestMessage addToCart(@PathParam("userId") String userId, @PathParam("medicineId") String medicineId, @PathParam("qty") int qty) {
+        try {
+            Medicine medicine = medicineFacade.find(medicineId);
+            double price = Double.parseDouble(medicine.getPrice());
+            Cart cart = new Cart();
+            cart.setCartId(cartIdGenerator.generateNumber());
+            cart.setMedicineId(medicineId);
+            cart.setProductName(medicine.getName());
+            cart.setUserId(userId);
+            cart.setQuantity(qty);
+            cart.setSubTotal(Double.toString(qty * price));
+            create(cart);
+            RestMessage message = new RestMessage("success");
+            return message;
+        } catch (NumberFormatException e) {
+            System.out.println("Error " + e);
+            RestMessage message = new RestMessage("failed");
+            return message;
+        }
+    }
+
+    @POST
+    @Path("plus/{cartId}/{medicineId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Cart increaseCartItem(@PathParam("cartId") String cartId, @PathParam("medicineId") String medicineId) {
+        Medicine medicine = medicineFacade.find(medicineId);
+        double price = Double.parseDouble(medicine.getPrice());
+        Cart cart = cartFacade.find(cartId);
+        int newQuantity = (cart.getQuantity() + 1);
+        cart.setQuantity(newQuantity);
+        cart.setSubTotal(Double.toString(newQuantity * price));
+        em.merge(cart);
+        return cart;
+    }
+    
+    @POST
+    @Path("minus/{cartId}/{medicineId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Cart decreaseCartItem(@PathParam("cartId") String cartId, @PathParam("medicineId") String medicineId) {
+        Medicine medicine = medicineFacade.find(medicineId);
+        double price = Double.parseDouble(medicine.getPrice());
+        Cart cart = cartFacade.find(cartId);
+        int newQuantity = (cart.getQuantity() - 1);
+        cart.setQuantity(newQuantity);
+        cart.setSubTotal(Double.toString(newQuantity * price));
+        em.merge(cart);
+        return cart;
+    }
+
+    @POST
+    @Path("remove/{cartId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public RestMessage removeFromCart(@PathParam("cartId") String cartId) {
+        try {
+            cartFacade.removeCartItem(cartId);
+            RestMessage message = new RestMessage("success");
+            return message;
+        } catch (Exception e) {
+            System.out.println("Error " + e);
+            RestMessage message = new RestMessage("failed");
+            return message;
+        }
+
+    }
+
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
@@ -87,5 +170,5 @@ public class CartFacadeREST extends AbstractFacade<Cart> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

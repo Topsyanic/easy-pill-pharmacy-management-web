@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -75,6 +76,17 @@ public class MedicineFacadeREST extends AbstractFacade<Medicine> {
     public List<Medicine> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
+    
+    @GET
+    @Path("all")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Medicine> findAllMobile() {
+       Query q = em.createNamedQuery("Medicine.findAllNoPres");
+        q.setParameter(1, "No");
+        List<Medicine> a = q.getResultList();
+        return a;
+    }
+
 
     @GET
     @Path("count")

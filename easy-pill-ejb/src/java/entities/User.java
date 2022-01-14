@@ -100,9 +100,6 @@ public class User implements Serializable {
         if (address == null || "".equals(address)) {
             throw new IllegalArgumentException("Invalid address");
         }
-        if (expertise == null || "".equals(expertise)) {
-            throw new IllegalArgumentException("Invalid expertise");
-        }
         if (userRole == null || "".equals(userRole)) {
             throw new IllegalArgumentException("Invalid user role");
         }

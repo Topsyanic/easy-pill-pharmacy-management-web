@@ -129,6 +129,7 @@
                                             <td>Order ID</td>
                                             <td>User ID</td>
                                             <td>Amount</td>
+                                            <td>Address</td>
                                             <td>Status</td>
                                             <td>Date</td>
                                             <td>View</td>
@@ -147,6 +148,7 @@
                                                 <td>${tempList3.orderId}</td>
                                                 <td>${tempList3.userId}</td>
                                                 <td>${tempList3.amount}</td>
+                                                <td>${tempList3.address}</td>
                                                 <td>${tempList3.status}</td>
                                                 <td>${tempList3.date}</td>
                                                 <td><a href='${viewLink}' class="customButton"> <span class="las la-eye"></span></a></td>

@@ -159,7 +159,7 @@ public class CartController extends HttpServlet {
         if (!cartList.isEmpty()) {
             for (Cart cart : cartList) {
                 total = total + Double.parseDouble(cart.getSubTotal());
-                orderDetails = orderDetails + ", " + cart.getProductName() + " (" + cart.getQuantity()+ ") ";
+                orderDetails = orderDetails + " " + cart.getProductName() + "(" + cart.getQuantity()+ ") ";
             }
         }
         request.setAttribute("cartTotal", total);

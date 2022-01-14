@@ -6,9 +6,11 @@
 package model;
 
 import entities.Cart;
+import entities.Medicine;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,6 +24,9 @@ import utilities.Logged;
  */
 @Stateless
 public class CartFacade extends AbstractFacade<Cart> {
+
+    @EJB
+    private MedicineFacade medicineFacade;
 
     @PersistenceContext(unitName = "easy-pill-ejbPU")
     private EntityManager em;
@@ -65,6 +70,21 @@ public class CartFacade extends AbstractFacade<Cart> {
         c.setQuantity(newQuantity);
         c.setSubTotal(Double.toString(newQuantity * price));
         em.merge(c);
+    }
+
+    @Logged
+    @Transactional(rollbackOn = {ArrayIndexOutOfBoundsException.class},
+            dontRollbackOn = {SQLWarning.class, SQLException.class})
+    public void updateStock(String userId) {
+        List<Cart> cartList = getUserCart(userId);
+        if (!cartList.isEmpty()) {
+            cartList.forEach((cart) -> {
+                Medicine m = em.find(Medicine.class, cart.getMedicineId());
+                int qty = Integer.parseInt(m.getQuantity()) - cart.getQuantity();
+                m.setQuantity(String.valueOf(qty));
+                em.merge(m);
+            });
+        }
     }
 
     @Logged

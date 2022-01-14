@@ -7,6 +7,7 @@ package service;
 
 import entities.CustomerOrder;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import model.CustomerOrderFacade;
+import utilities.RestMessage;
 
 /**
  *
@@ -27,6 +30,10 @@ import javax.ws.rs.core.MediaType;
 @Stateless
 @Path("entities.customerorder")
 public class CustomerOrderFacadeREST extends AbstractFacade<CustomerOrder> {
+
+    @EJB
+    private CustomerOrderFacade customerOrderFacade;
+    
 
     @PersistenceContext(unitName = "easy-pill-ejbPU")
     private EntityManager em;
@@ -76,6 +83,66 @@ public class CustomerOrderFacadeREST extends AbstractFacade<CustomerOrder> {
         return super.findRange(new int[]{from, to});
     }
 
+    @POST
+    @Path("order/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public RestMessage confirmOrder(@PathParam("id") String orderId) {
+        try {
+            CustomerOrder c = em.find(CustomerOrder.class, orderId);
+            c.setStatus("Confirmed");
+            em.merge(c);
+            RestMessage message = new RestMessage("success");
+            return message;
+        } catch (Exception e) {
+            RestMessage message = new RestMessage("failed");
+            return message;
+        }
+
+    }
+    
+    @POST
+    @Path("pay/{details}/{amount}/{userId}/{address}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public RestMessage makeOrder(@PathParam("details") String details, @PathParam("amount") String amount, @PathParam("userId") String userId, @PathParam("address") String address) {
+        try {
+            customerOrderFacade.mobileOrder(details, amount, userId,address);
+            RestMessage message = new RestMessage("success");
+            return message;
+        } catch (Exception e) {
+            RestMessage message = new RestMessage("failed");
+            return message;
+        }
+    }
+    
+    @GET
+    @Path("userorders/{userId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<CustomerOrder> getUserOrders( @PathParam("userId") String userId) {
+         return  customerOrderFacade.getUserPendingOrders(userId);
+    }
+    @GET
+    @Path("userhistory/{userId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<CustomerOrder> getUserHistory( @PathParam("userId") String userId) {
+         return  customerOrderFacade.getUserHistory(userId);
+    }
+    
+    @POST
+    @Path("cancel/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public RestMessage cancelOrder(@PathParam("id") String orderId) {
+        try {
+            customerOrderFacade.cancelOrder(orderId);
+            RestMessage message = new RestMessage("success");
+            return message;
+        } catch (Exception e) {
+            RestMessage message = new RestMessage("failed");
+            return message;
+        }
+
+    }
+    
+
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
@@ -87,5 +154,5 @@ public class CustomerOrderFacadeREST extends AbstractFacade<CustomerOrder> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

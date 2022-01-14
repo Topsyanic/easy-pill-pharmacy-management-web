@@ -61,7 +61,7 @@
                                     <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"  onclick="return validate()"/>
                                 </div>
                                 <p class="loginhere">
-                                    Already have an account ? <a class="login-here-link-text" href="login.jsp">Login here</a>
+                                    Already have an account ? <a class="login-here-link-text" href="loginPage.jsp">Login here</a>
                                 </p>
                             </div>
                         </form>

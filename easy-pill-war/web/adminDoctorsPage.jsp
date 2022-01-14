@@ -128,11 +128,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>Doctors</h3>
-                            <c:choose>
-                                <c:when  test="${role == 'admin'}">
                                     <a href='${addDoctor}' class="customButton">Add <span class="las la-plus"></span></a> 
-                                    </c:when>
-                                </c:choose>
                             <input class="search-box" id="search1" placeholder="Search..." >
                         </div>
                         <div class="card-body">
@@ -147,12 +143,7 @@
                                             <td>Address</td>
                                             <td>Contact</td>
                                             <td>Expertise</td>
-                                            <c:choose>
-                                                <c:when  test="${role == 'admin'}">
-                                                    <td>Remove</td>
-                                                </c:when>
-                                            </c:choose>
-
+                                            <td>Remove</td>
                                         </tr>
                                     </thead>
                                     <tbody id="myTable1">
@@ -173,11 +164,7 @@
                                                 <td>${tempList2.address}</td>
                                                 <td>${tempList2.contactNo}</td>
                                                 <td>${tempList2.expertise}</td>
-                                                <c:choose>
-                                                    <c:when  test="${role == 'admin'}">
-                                                        <td><a href='${deleteLink}' class="deleteButton"> <span class="las la-times"></span></a></td>
-                                                            </c:when>
-                                                        </c:choose>
+                                                <td><a href='${deleteLink}' class="deleteButton"> <span class="las la-times"></span></a></td>
                                             </tr> 
                                         </c:forEach>
                                     </tbody>

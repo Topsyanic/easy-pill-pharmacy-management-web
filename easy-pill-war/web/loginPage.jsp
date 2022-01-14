@@ -44,7 +44,7 @@
 
                 </form>
                 <p class="loginhere">
-                    No account ? Sign Up as <a href="customerSignUp.jsp" class="login-here-link-text">Customer</a> or <a href="doctorSignUp.jsp" class="login-here-link-text">Doctor</a>
+                    No account ? Sign Up as <a href="customerSignUpPage.jsp" class="login-here-link-text">Customer</a> or <a href="doctorSignUpPage.jsp" class="login-here-link-text">Doctor</a>
                 </p>
             </div>
         </div>

@@ -38,6 +38,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 })
 public class CustomerOrder implements Serializable {
 
+    @Size(max = 512)
+    @Column(name = "address")
+    private String address;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -115,6 +119,8 @@ public class CustomerOrder implements Serializable {
     public void setDate(String date) {
         this.date = date;
     }
+    
+    
 
     @Override
     public int hashCode() {
@@ -139,6 +145,14 @@ public class CustomerOrder implements Serializable {
     @Override
     public String toString() {
         return "entities.CustomerOrder[ orderId=" + orderId + " ]";
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 }

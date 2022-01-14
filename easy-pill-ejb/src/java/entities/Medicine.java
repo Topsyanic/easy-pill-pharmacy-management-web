@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Medicine.findByImagePath", query = "SELECT m FROM Medicine m WHERE m.imagePath = :imagePath")
     , @NamedQuery(name = "Medicine.findByQuantity", query = "SELECT m FROM Medicine m WHERE m.quantity = :quantity")
     , @NamedQuery(name = "Medicine.findAllInStock", query = "SELECT m FROM Medicine m WHERE m.quantity > ?1 ")
+    , @NamedQuery(name = "Medicine.findAllNoPres", query = "SELECT m FROM Medicine m WHERE m.requirePres = ?1 ")
     , @NamedQuery(name = "Medicine.searchMedicine", query = "SELECT m FROM Medicine m WHERE m.name LIKE ?1 OR m.description LIKE ?1 OR m.price LIKE ?1")
     , @NamedQuery(name = "Medicine.findAllOutOfStock", query = "SELECT m FROM Medicine m WHERE m.quantity = ?1 ")
 })
