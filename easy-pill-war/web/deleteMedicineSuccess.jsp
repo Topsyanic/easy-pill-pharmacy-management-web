@@ -21,7 +21,7 @@
     <body>
     <c:url var="medicineLink" value="MedicineController">
         <c:param name="command" value="MEDICINE"/>
-        <c:param name="command" value="${tab}"/>
+        <c:param name="tab" value="${tab}"/>
     </c:url>
     <br>
     <br>
