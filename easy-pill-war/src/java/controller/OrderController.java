@@ -5,6 +5,8 @@
  */
 package controller;
 
+import entities.CustomerOrder;
+import entities.User;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.CustomerOrderFacade;
+import model.UserFacade;
 import utilities.Mail;
 import utilities.OrderIdGenerator;
 import utilities.SessionDetails;
@@ -27,7 +30,11 @@ import utilities.SessionDetails;
 public class OrderController extends HttpServlet {
 
     @EJB
+    private UserFacade userFacade;
+
+    @EJB
     private CustomerOrderFacade customerOrderFacade;
+    
 
     @EJB
     private OrderIdGenerator orderIdGenerator;
@@ -116,7 +123,6 @@ public class OrderController extends HttpServlet {
     private void redirectCustomerOrders(HttpServletRequest request, HttpServletResponse response, String message) throws ServletException, IOException {
         request.setAttribute("username", SessionDetails.getUserFirstName() + " " + SessionDetails.getUserLastName());
         request.setAttribute("role", SessionDetails.getUserRole());
-        String role = SessionDetails.getUserRole();
         String userId = SessionDetails.getUserId();
         request.setAttribute("ORDERLIST", customerOrderFacade.getUserOrders(userId));
         request.setAttribute("orderMessage", message);
@@ -133,8 +139,10 @@ public class OrderController extends HttpServlet {
 
     private void confirmOrder(HttpServletRequest request, HttpServletResponse response) throws MessagingException, ServletException, IOException {
         String orderId = request.getParameter("orderId");
+        CustomerOrder order = customerOrderFacade.find(orderId);
+        User user = userFacade.find(order.getUserId());
         customerOrderFacade.confirmOrder(orderId);
-        Mail.sendMail(SessionDetails.getUserEmail(), "Your order has been confirmed. Your order is on its way now. \n\nThank You,\nEasy-Pill Team");
+        Mail.sendMail(user.getEmail(), "Your order has been confirmed. Your order is on its way now. \n\nThank You,\nEasy-Pill Team");
         RequestDispatcher dispatcher = request.getRequestDispatcher("/adminConfirmOrderSuccess.jsp");
         dispatcher.forward(request, response);
     }

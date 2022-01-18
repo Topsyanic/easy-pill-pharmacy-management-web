@@ -127,12 +127,12 @@
                 <div class="projects">
                     <div class="card">
                         <div class="card-header">
+                            <h3>Pharmacists</h3>
                             <c:choose>
                                 <c:when  test="${role == 'admin'}">
                                     <a href='${addPharmacist}' class="customButton">Add <span class="las la-plus"></span></a> 
                                     </c:when>
                                 </c:choose>
-                            <h3>Pharmacists</h3>
                             <input class="search-box" id="search2" placeholder="Search..." >
                         </div>
                         <div class="card-body">

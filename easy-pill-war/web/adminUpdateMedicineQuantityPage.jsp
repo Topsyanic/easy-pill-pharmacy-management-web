@@ -44,7 +44,7 @@
                                            maxlength = "3"/>
                                 </div>
                                 <input type="submit" name="submit" id="submit" class="form-submit" value="Update "/>
-                                <input type="button" name="submit" id="submit" class="form-submit" value="cancel " />
+                                <input type="button" name="submit" id="submit" class="form-submit" value="cancel " onclick="history.back()"/>
                             </div>           
                         </form>
                     </div>               
